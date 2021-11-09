@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    container_name: MariaDB
+    environment: 
+      MYSQL_ROOT_PASSWORD:
+        "${DATABASE_PASSWORD}"
+      MYSQL_DATABASE:
+        "${DATABASE_NAME}"
+      MYSQL_USER:
+        "${DATABASE_USER}"
+      MYSSQL_PASSWORD:
+        "${DATABASE_PASSWORD}"
+    ports: 
+      - ${DATABASE_PORT}:3306
+
+  react:
+    container_name: React
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./howest-stage
+    volumes:
+      - ./howest-stage:/app
