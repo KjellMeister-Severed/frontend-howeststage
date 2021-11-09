@@ -1,18 +1,25 @@
 import './App.css';
-import  Home  from './pages/Home'
+import About from "./components/about/About";
+import Dashboard from "./components/dashboard/dashboard";
 import { Routes, Route } from "react-router-dom";
-import About from "./components/About";
-import StudentDashboard from './pages/student/dashboard';
-import CompanyDashboard from './pages/company/dashboard';
+import StudentDashboard from "./components/dashboard/student/StudentDashboard";
+import CompanyDashboard from "./components/dashboard/CompanyDashboard";
+
+const Test = () => {
+    return (
+        <div>
+            hallo
+        </div>
+    )
+}
 
 function App() {
   return (
     <div className={"App"}>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="about" element={<About/>} />
-        <Route path="/student/dashboard" element={<StudentDashboard/>} />
-        <Route path="/company/dashboard" element={<CompanyDashboard/>} />
+          <Route path={"/"} element={<StudentDashboard />} />
+          <Route path={"/dashboard/student"} element={<StudentDashboard />} />
+          <Route path={"/dashboard/company"} element={<CompanyDashboard />} />
       </Routes>
     </div>
   );
