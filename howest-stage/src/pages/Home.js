@@ -1,6 +1,6 @@
-import {Link} from 'react-router-dom';
 import howest_full from './../images/howest_full.png';
 import index_picture from './../images/index_picture.jpg'
+import LargeButton from "../components/LargeButton";
 
 const Home = () => {
     return (
@@ -11,15 +11,18 @@ const Home = () => {
             <article className={"flex flex-col w-3/4 items-center mx-auto lg:justify-around"}>
                 <figure className={"flex flex-col w-60 items-center"}>
                     <img src={howest_full} alt="HoWest"/>
-                    <figcaption><span className={"font-vagbold text-xl tracking-wide text-magenta"}>Stage Booker </span>Login
+                    <figcaption>
+                        <span className={"font-vagbold text-xl tracking-wide text-magenta"}>Stage Booker </span>Login
                     </figcaption>
                 </figure>
                 <nav className={"flex flex-row items-center m-2 lg:flex-col gap-2 lg:gap-0.5"}>
-                    <Link to="/student/dashboard" className={"p-5 rounded bg-blue text-white hover:bg-magenta"}>Login as
-                        student</Link>
+                    <LargeButton to={"/student/dashboard"}>
+                        Login as student
+                    </LargeButton>
                     <p className={"font-vagbold"}>or</p>
-                    <Link to="/company/dashboard" className={"p-5 rounded bg-blue text-white hover:bg-magenta"}>Login as
-                        company</Link>
+                    <LargeButton to={"/company/dashboard"}>
+                        Login as company
+                    </LargeButton>
                 </nav>
             </article>
         </main>
