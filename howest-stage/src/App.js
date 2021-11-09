@@ -1,17 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-import  Home  from './components/Home'
-import { Routes, Route, Link } from "react-router-dom";
-import {useState, useEffect} from "react";
+import  Home  from './pages/Home'
+import { Routes, Route } from "react-router-dom";
 import About from "./components/About";
+import StudentDashboard from './pages/student/dashboard';
+import CompanyDashboard from './pages/company/dashboard';
 
 function App() {
   return (
     <div className={"App"}>
-      <h1>Dit is de root</h1>
       <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"about"} element={<About />}/>
+        <Route path="/" element={<Home/>} />
+        <Route path="about" element={<About/>} />
+        <Route path="/student/dashboard" element={<StudentDashboard/>} />
+        <Route path="/company/dashboard" element={<CompanyDashboard/>} />
       </Routes>
     </div>
   );
