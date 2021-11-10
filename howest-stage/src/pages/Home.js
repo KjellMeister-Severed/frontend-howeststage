@@ -6,7 +6,7 @@ import MediumButton from "../components/MediumButton";
 
 const Home = () => {
     return (
-        <div className={ "flex flex-col "}>
+        <>
             <UniversalHeader className="h-24 flex-initial">
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 1</MediumButton>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 2</MediumButton>
@@ -35,7 +35,7 @@ const Home = () => {
                     </nav>
                 </article>
             </main>
-        </div>
+        </>
     )
 }
 
