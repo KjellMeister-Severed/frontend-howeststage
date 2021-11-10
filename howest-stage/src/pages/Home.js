@@ -3,16 +3,12 @@ import index_picture from './../images/index_picture.jpg'
 import LargeButton from "../components/LargeButton";
 import UniversalHeader from "../components/UniversalHeader";
 import MediumButton from "../components/MediumButton";
+import UniversalFooter from "../components/UniversalFooter";
 
 const Home = () => {
     return (
         <>
-            <UniversalHeader className="h-24 flex-initial">
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 1</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 2</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 3</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 4</MediumButton>
-            </UniversalHeader>
+            <UniversalHeader className="h-24 flex-initial w-screen fixed"/>
             <main className={"flex flex-col lg:flex-row h-auto flex-auto"}>
                 <aside>
                     <img src={index_picture} alt="People meeting" className={"object-cover lg:h-screen"}/>
@@ -35,6 +31,7 @@ const Home = () => {
                     </nav>
                 </article>
             </main>
+            <UniversalFooter className={"h-20 w-screen"} />
         </>
     )
 }
