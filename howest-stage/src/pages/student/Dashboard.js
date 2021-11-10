@@ -1,4 +1,5 @@
 import Appointment from "../../components/Appointment"
+import CompanyShort from "../../components/Company/Short"
 import MediumButton from "../../components/MediumButton"
 import UniversalHeader from "../../components/UniversalHeader"
 
@@ -12,7 +13,7 @@ const StudentDashboard = () => {
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 4</MediumButton>
             </UniversalHeader>
             <main className="flex flex-row gap-2">
-                <article className={ "bg-black text-white w-1/3 flex-shrink-0 m-2"  }>
+                <article className={ "bg-black text-white w-1/3 flex-shrink-0 p-2"  }>
                     <h2 className="font-vagbold text-xl ">Upcoming meetings</h2>
                     <Appointment
                         company={ "Google" }
@@ -44,7 +45,46 @@ const StudentDashboard = () => {
                         </label>
                     </div>
                     <div>
-                        
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={ "Brussels" }>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
+                        <CompanyShort
+                            name={"Deloitte"}
+                            location={"Brussels"}>
+                            <p>Welcome to Deloite. Lorem Ipsum.....</p>
+                        </CompanyShort>
                     </div>
                 </article>
             </main>

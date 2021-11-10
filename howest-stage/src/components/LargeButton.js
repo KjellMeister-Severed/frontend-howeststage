@@ -7,8 +7,7 @@ class LargeButton extends Component {
             <Link to={this.props.to}
                   className={"p-5 rounded text-white "
                     .concat(this.props.bg)
-                    .concat(` hover:${this.props.bgHover} `)
-                    .concat( ...this.props.className )}>
+                    .concat(` hover:${this.props.bgHover} `)}>
                 {this.props.children}
             </Link>
         )
