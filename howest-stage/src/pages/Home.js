@@ -6,18 +6,18 @@ import MediumButton from "../components/MediumButton";
 
 const Home = () => {
     return (
-        <>
-            <UniversalHeader>
+        <div className={ "flex flex-col "}>
+            <UniversalHeader className="h-24 flex-initial">
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 1</MediumButton>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 2</MediumButton>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 3</MediumButton>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 4</MediumButton>
             </UniversalHeader>
-            <main className={"flex flex-col lg:flex-row h-auto"}>
+            <main className={"flex flex-col lg:flex-row h-auto flex-auto"}>
                 <aside>
                     <img src={index_picture} alt="People meeting" className={"object-cover lg:h-screen"}/>
                 </aside>
-                <article className={"flex flex-col w-3/4 items-center mx-auto lg:justify-around"}>
+                <article className={"flex flex-col w-3/4 items-center mx-auto lg:justify-center"}>
                     <figure className={"flex flex-col w-60 items-center"}>
                         <img src={howest_full} alt="HoWest"/>
                         <figcaption>
@@ -35,7 +35,7 @@ const Home = () => {
                     </nav>
                 </article>
             </main>
-        </>
+        </div>
     )
 }
 
