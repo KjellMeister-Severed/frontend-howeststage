@@ -25,11 +25,11 @@ const Home = () => {
                         </figcaption>
                     </figure>
                     <nav className={"flex flex-row items-center m-2 lg:flex-col gap-2 lg:gap-0.5"}>
-                        <LargeButton to={"/student/dashboard"} bg={"bg-blue"}>
+                        <LargeButton to={"/dashboard/student"} bg={"bg-blue"}>
                             Login as student
                         </LargeButton>
                         <p className={"font-vagbold"}>or</p>
-                        <LargeButton to={"/company/dashboard"} bg={"bg-blue"}>
+                        <LargeButton to={"/dashboard/company"} bg={"bg-blue"}>
                             Login as company
                         </LargeButton>
                     </nav>
