@@ -1,17 +1,18 @@
 import UniversalHeader from "../../components/UniversalHeader";
 import LegalTextNotice from "../../components/LegalComponents/LegalTextNotice";
+import {Link} from "react-router-dom";
 
 const Legal = () => {
     return (
         <>
             <UniversalHeader className="h-24 flex-initial w-screen fixed" />
             <main className={"h-screen w-screen pt-28 pl-12 flex flex-col"}>
-                <LegalTextNotice title="Picture Credits - Thanks to the following creators for their images:">
-                    <p><b>Daria Nekipelova</b> from <b>Pexels</b>!</p>
-                    <p><b>Daria Nekipelova</b> from <b>Pexels</b>!</p>
-                    <p><b>Daria Nekipelova</b> from <b>Pexels</b>!</p>
+                <LegalTextNotice title="Picture Credits - Thanks to the following creators for their images:" className={""}>
+                    <p className={"pl-2"}>- <b className={"pl-2"}>Daria Nekipelova</b> from <b>Pexels</b>!</p>
+                    <p className={"pl-2"}>- <b className={"pl-2"}>Daria Nekipelova</b> from <b>Pexels</b>!</p>
+                    <p className={"pl-2"}>- <b className={"pl-2"}>Daria Nekipelova</b> from <b>Pexels</b>!</p>
                 </LegalTextNotice>
-                <LegalTextNotice title="Legal Notice regarding use of this platform">
+                <LegalTextNotice title="Legal Notice regarding use of this platform" className={"legalArticle"}>
                     <p>The information contained in this website is for general information purposes only.
                         The information is provided by [business name] and while we endeavour to keep the information up to date and correct,
                         we make no representations or warranties of any kind, express or implied, about the completeness,
@@ -31,6 +32,7 @@ const Legal = () => {
                         to technical issues beyond our control.
                     </p>
                 </LegalTextNotice>
+                <Link to={"/"} className={"text-magenta font-bold"}>Back</Link>
             </main>
         </>
 
