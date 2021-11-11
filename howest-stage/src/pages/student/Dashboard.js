@@ -9,20 +9,25 @@ class StudentDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            allcompanies: [],
             companies: [],
         };
     };
-
-    handleSearchFilter(){
-
-    }
 
     componentDidMount() {
         fetch('http://localhost:3001/api/companies')
             .then(response => response.json())
             .then(data => this.setState(() => ({
-                companies: data,
+                allcompanies: data,
+                companies: data
             })));
+    }
+
+    handleSearchFilter = (event) => {
+        let filteredList = this.state.allcompanies.filter(company => company.name.includes(event.target.value));
+        this.setState((state) => ({
+            companies: filteredList,
+        }))
     }
 
     render() {
@@ -67,7 +72,7 @@ class StudentDashboard extends Component {
                         <h2 className="font-vagbold text-xl mb-2">Companies open for appointments</h2>
                         <span>
                             <p className={"inline mr-2"}>Search:</p>
-                            <input type={"text"} placeholder="Search a company..." name="CompanyQuery"
+                            <input type={"text"} placeholder="Search a company..." onChange={this.handleSearchFilter} name="CompanyQuery"
                                    className={"border-solid border-2 p-1"}/>
                         </span>
                         <div>
