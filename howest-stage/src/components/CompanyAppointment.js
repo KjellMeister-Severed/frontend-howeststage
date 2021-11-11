@@ -5,7 +5,7 @@ import MediumButton from './MediumButton';
 class CompanyAppointment extends Component {
     render() {
         return (
-            <details className={"border border-solid"} open>
+            <details className={"border border-solid"}>
                 <summary className={"flex flex-row justify-between items-center border-b border-solid p-2 font-vag"}>
                     <p>Appointment with {this.props.person} at {this.props.time}</p>
                     <MediumButton bg="bg-blue" className={ "hover:text-white"}>View details</MediumButton>
