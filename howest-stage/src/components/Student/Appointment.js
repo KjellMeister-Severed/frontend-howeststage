@@ -1,7 +1,7 @@
 import { Component } from "react";
-import MediumButton from "./MediumButton";
+import MediumButton from "../MediumButton";
 
-class Appointment extends Component {
+class StudentAppointment extends Component {
     render() { 
         return (
             <section className={ "m-2 p-2 flex flex-col gap-1 border-white border-solid border-b-2"}>
@@ -23,4 +23,4 @@ class Appointment extends Component {
     }
 }
 
-export default Appointment;
+export default StudentAppointment;
