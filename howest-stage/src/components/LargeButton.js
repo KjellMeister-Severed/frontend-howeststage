@@ -4,7 +4,7 @@ import UniLink from "./helpers/UniLink";
 class LargeButton extends Component {
     render() {
         return (
-            <UniLink to={this.props.to}
+            <UniLink to={this.props.to} onClick={this.props.onClick}
                 className={`p-5 rounded text-white ${this.props.bg} ${`hover:${this.props.bgHover}`} ${this.props.className}`}>
                 {this.props.children}
             </UniLink>
