@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import MediumButton from './MediumButton';
+import MediumButton from '../MediumButton';
 
 
 class CompanyAppointment extends Component {

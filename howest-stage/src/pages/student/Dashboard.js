@@ -6,7 +6,7 @@ import UniversalHeader from "../../components/UniversalHeader"
 const StudentDashboard = () => {
     return (
         <>
-            <UniversalHeader className="h-24 flex-initial">
+            <UniversalHeader className="h-24 flex-initial" subheader={"My Appointments"}>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
                 <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>

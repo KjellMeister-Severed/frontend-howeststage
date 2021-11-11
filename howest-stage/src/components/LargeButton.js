@@ -1,15 +1,13 @@
-import {Link} from "react-router-dom";
 import {Component} from "react";
+import UniLink from "./helpers/UniLink";
 
 class LargeButton extends Component {
     render() {
         return (
-            <Link to={this.props.to}
-                  className={"p-5 rounded text-white "
-                    .concat(this.props.bg)
-                    .concat(` hover:${this.props.bgHover} `)}>
+            <UniLink to={this.props.to}
+                className={`p-5 rounded text-white ${this.props.bg} ${`hover:${this.props.bgHover}`} ${this.props.className}`}>
                 {this.props.children}
-            </Link>
+            </UniLink>
         )
     }
 }
