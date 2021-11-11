@@ -4,8 +4,11 @@ Howest Stagebooker is a React-based application that allows HoWest Personal & st
 
 > :exclamation: You are currently in the front-end section of the project. Note that you'll also need access to the [back-end](https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/back-end) if you want complete functionality
 
+## Requirements
+- [Node.JS LTS](https://nodejs.org/en/download/) & NPM
+- [Docker (Desktop)](https://www.docker.com/get-started)
 ## Available scripts
-> :bulb: NPM is used througout this project, but you can use `yarn` if that suits you more. Just replace `npm run` with `yarn`.
+> :bulb: NPM is used throughout this project, but you can use `yarn` if that suits you more. Just replace `npm run` with `yarn`.
 
 > :exclamation: Make sure that you're in **`./howest-stage`**, otherwise this won't work
 
@@ -24,10 +27,10 @@ Howest Stagebooker is a React-based application that allows HoWest Personal & st
 1. Clone the following projects to your local machine using `git clone`:
    - **[React App](https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/react-app):** [https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/react-app](https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/react-app)
    - **[Express Backend](https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/back-end)**: https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/back-end
-2. Follow the [Back-end setup guide]() on how to configure the Express back-end
-3. In your CLI of choice, navigate to the `./howest-stage` directory and run the following command: `npm run start`
+2. Follow the [Back-end setup guide](https://git.ti.howest.be/TI/2021-2022/s5/project-iv/projects/group-13/back-end/-/blob/master/README.md#Installation) on how to configure the Express back-end
+3. In your CLI of choice, navigate to the `./react-app/howest-stage` directory and run the following command: `npm run start`
 
-:white_check_mark: **Done!** Normally, you should be completely set up in order to start developing. Navigate to [localhost:3000](http://localhost:3000) in order to keep tracj of your process.
+:white_check_mark: **Done!** Normally, you should be completely set up in order to start developing. Navigate to [localhost:3000](http://localhost:3000) in order to keep trace of your process.
 
 ### Docker-based deployment
 
