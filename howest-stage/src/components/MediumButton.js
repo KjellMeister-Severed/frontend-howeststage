@@ -7,7 +7,6 @@ class MediumButton extends Component {
             <UniLink to={this.props.to}
                 className={`p-2 rounded ${this.props.textColor} ${this.props.bg} ${(this.props.bgHover !== "") ? "hover:".concat(this.props.bgHover) : ""} ${this.props.className}`}
                 onClick={this.props.onClick}>
-                { console.log(this.props)}
                 {this.props.children}
             </UniLink>
         )
