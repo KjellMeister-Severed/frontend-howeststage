@@ -4,12 +4,6 @@ class UniversalFooter extends React.Component {
     constructor(props) {
         super(props);
         this.contributors = [
-            `<li className={"mr-2"}><a className={"hover:text-magenta text-white"} href="https://www.linkedin.com/in/kjell-maekelberg/">Kjell Maekelberg</a></li>`,
-            `<li className={"mr-2"}><a className={"hover:text-magenta text-white"} href="https://www.linkedin.com/in/borobbrecht/">Bo Robbrecht</a></li>`,
-            ``,
-            `<li className={"mr-2"}><a className={"hover:text-magenta text-white"} href="#">Adriaan De Saeger</a></li>`
-        ]
-        this.contributors = [
             {
                 linkedInURL: "https://www.linkedin.com/in/kjell-maekelberg/",
                 name: "Kjell Maekelberg"
@@ -63,8 +57,6 @@ class UniversalFooter extends React.Component {
     }
 
     render() {
-        console.log(this.state.count)
-        console.log(this.contributors.length)
         return (
             <footer
                 className={`${this.props.className} flex bottom-0 justify-between items-center fixed bg-primary p-4`}>
