@@ -6,12 +6,12 @@ const CompanyDashboard = () => {
     return (
         <>
             <UniversalHeader className="h-24 flex-initial">
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 1</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 2</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 3</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 4</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={ "text-white"}>Link 1</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 4</MediumButton>
                 </UniversalHeader>
-            <main>
+            <main className={ "mx-2 mt-2"}>
                 <CompanyAppointment
                     className={ "inline-block"}
                     person={"Bo Robbrecht"}
