@@ -1,4 +1,4 @@
-import Appointment from "../../components/Appointment"
+import StudentAppointment from "../../components/Student/Appointment"
 import CompanyShort from "../../components/Company/Short"
 import MediumButton from "../../components/MediumButton"
 import UniversalHeader from "../../components/UniversalHeader"
@@ -6,32 +6,32 @@ import UniversalHeader from "../../components/UniversalHeader"
 const StudentDashboard = () => {
     return (
         <>
-            <UniversalHeader className="h-24 flex-initial" subheader="My Appointments">
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 1</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 2</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 3</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"}>Link 4</MediumButton>
+            <UniversalHeader className="h-24 flex-initial" subheader={"My Appointments"}>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
+                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 4</MediumButton>
             </UniversalHeader>
             <main className="flex flex-row gap-2">
                 <article className={ "bg-black text-white w-1/3 flex-shrink-0 p-2"  }>
                     <h2 className="font-vagbold text-xl ">Upcoming meetings</h2>
-                    <Appointment
+                    <StudentAppointment
                         company={ "Google" }
                         date={ new Date() }
                         meeting={"https://meet.jit.si/"} />
-                    <Appointment
+                    <StudentAppointment
                         company={"Google"}
                         date={new Date()}
                         meeting={"https://meet.jit.si/"} />
-                    <Appointment
+                    <StudentAppointment
                         company={"Google"}
                         date={new Date()}
                         meeting={"https://meet.jit.si/"} />
-                    <Appointment
+                    <StudentAppointment
                         company={"Google"}
                         date={new Date()}
                         meeting={"https://meet.jit.si/"} />
-                    <Appointment
+                    <StudentAppointment
                         company={"Google"}
                         date={new Date()}
                         meeting={"https://meet.jit.si/"} />
@@ -39,7 +39,7 @@ const StudentDashboard = () => {
                 <article className={"flex-shrink p-2"}>
                     <h2 className="font-vagbold text-xl mb-2">Companies open for appointments</h2>
                     <div>
-                        <label for="companyQuery">
+                        <label>
                             <p className={ "inline mr-2"}>Search:</p>
                             <input type={"text"} placeholder="Search a company..." name="CompanyQuery" className={ "border-solid border-2 p-1"} />
                         </label>
