@@ -3,12 +3,25 @@ import MediumButton from '../MediumButton';
 
 
 class CompanyAppointment extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { open: false };
+        this.changeDetailsVisibility = this.changeDetailsVisibility.bind(this)
+    }
+
+    changeDetailsVisibility(){
+        console.log("Activatedè!")
+        this.setState((state) =>({
+            open: !state.open
+        }))
+    }
+
     render() {
         return (
-            <details className={"border border-solid"}>
+            <details className={"border border-solid"} open={ (this.state.open) ? "open" : ""}>
                 <summary className={"flex flex-row justify-between items-center border-b border-solid p-2 font-vag"}>
                     <p>Appointment with {this.props.person} at {this.props.time}</p>
-                    <MediumButton bg="bg-blue" className={ "hover:text-white"}>View details</MediumButton>
+                    <MediumButton bg="bg-blue" className={"hover:text-white"} textColor={ "text-white" } onClick={this.changeDetailsVisibility}>View details</MediumButton>
                 </summary>
                 <div className={ "flex flex-row justify-between items-center p-1 bg-teal text-white"}>
                     <div className={"flex p-2 flex-row gap-4"}>
