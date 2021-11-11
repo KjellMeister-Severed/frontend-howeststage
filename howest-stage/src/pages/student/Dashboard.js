@@ -4,6 +4,7 @@ import MediumButton from "../../components/MediumButton"
 import UniversalHeader from "../../components/UniversalHeader"
 import {Component} from "react";
 import StudentAppointments from "../../components/Student/Appointments";
+import StudentCompanyList from "../../components/Student/Companies";
 
 class StudentDashboard extends Component {
     constructor(props) {
@@ -68,26 +69,18 @@ class StudentDashboard extends Component {
                             date={new Date()}
                             meeting={"https://meet.jit.si/"}/>
                     </StudentAppointments>
-                    <section className={"flex-shrink p-2 w-3/4"}>
-                        <h2 className="font-vagbold text-xl mb-2">Companies open for appointments</h2>
-                        <span>
-                            <p className={"inline mr-2"}>Search:</p>
-                            <input type={"text"} placeholder="Search a company..." onChange={this.handleSearchFilter} name="CompanyQuery"
-                                   className={"border-solid border-2 p-1"}/>
-                        </span>
-                        <div>
-                            {
-                                companies.map(company =>
-                                    <CompanyShort
-                                    key={company.id}
-                                    name={company.name}
-                                    location={company.city}>
-                                        <p className={"truncate ..."}>{company.description}</p>
-                                    </CompanyShort>
-                                )
-                            }
-                        </div>
-                    </section>
+                    <StudentCompanyList onChange={this.handleSearchFilter}>
+                    {
+                        companies.map(company =>
+                            <CompanyShort
+                                key={company.id}
+                                name={company.name}
+                                location={company.city}>
+                                <p className={"truncate ..."}>{company.description}</p>
+                            </CompanyShort>
+                        )
+                    }
+                    </StudentCompanyList>
                 </main>
             </>
         )
