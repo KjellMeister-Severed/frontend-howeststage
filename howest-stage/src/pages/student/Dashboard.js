@@ -41,7 +41,7 @@ const StudentDashboard = () => {
                     <div>
                         <label for="companyQuery">
                             <p className={ "inline mr-2"}>Search:</p>
-                            <input type={"text"} placeholder="Search a company..." name="CompanyQuery" />
+                            <input type={"text"} placeholder="Search a company..." name="CompanyQuery" className={ "border-solid border-2 p-1"} />
                         </label>
                     </div>
                     <div>

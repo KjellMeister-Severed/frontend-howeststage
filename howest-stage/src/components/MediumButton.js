@@ -6,7 +6,7 @@ class MediumButton extends Component {
         if (this.props.to.includes("https://" || "http://")) {
             return (
                 <a href={this.props.to}
-                    className={"p-3 rounded text-white "
+                    className={"p-1 rounded text-white "
                         .concat(this.props.bg)
                         .concat(` hover:${this.props.bgHover} `)
                         .concat( ...this.props.className )}>

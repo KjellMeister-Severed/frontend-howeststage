@@ -12,7 +12,7 @@ class Appointment extends Component {
                     )}</p>
                 <MediumButton to={this.props.meeting}
                     alt={"Link for meeting with ".concat(this.props.company)}
-                    className={"w-fit hover:text-black"}
+                    className={"w-fit hover:text-black my-1"}
                     bg="bg-magenta"
                     bgHover="bg-white">
                     Meeting Link
