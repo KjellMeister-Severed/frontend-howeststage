@@ -5,8 +5,11 @@ import UniversalHeader from "../../components/UniversalHeader"
 import {Component} from "react";
 import StudentAppointments from "../../components/Student/Appointments";
 import StudentCompanyList from "../../components/Student/Companies";
+import { MsalContext } from "@azure/msal-react";
 
 class StudentDashboard extends Component {
+    static contextType = MsalContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -32,19 +35,13 @@ class StudentDashboard extends Component {
     }
 
     render() {
-        const { companies } = this.state;
 
+        const { companies } = this.state;
+        console.log(this.context.accounts[0])
         return (
             <>
-                <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"My Appointments"}>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link
-                        1</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link
-                        2</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link
-                        3</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link
-                        4</MediumButton>
+                <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
+                    <MediumButton className={"border-2 border-white rounded bg-magenta mr-5"} textColor={"text-white"}>Logout (todo)</MediumButton>
                 </UniversalHeader>
                 <main className="flex flex-row pt-20 gap-2 mt-18">
                     <StudentAppointments >
