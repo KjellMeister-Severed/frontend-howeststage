@@ -37,7 +37,6 @@ class StudentDashboard extends Component {
     render() {
 
         const { companies } = this.state;
-        console.log(this.context.accounts[0])
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
