@@ -6,6 +6,7 @@ import {Component} from "react";
 import StudentAppointments from "../../components/Student/Appointments";
 import StudentCompanyList from "../../components/Student/Companies";
 import { MsalContext } from "@azure/msal-react";
+import UniLink from "../../components/helpers/UniLink";
 
 class StudentDashboard extends Component {
     static contextType = MsalContext;
@@ -74,6 +75,7 @@ class StudentDashboard extends Component {
                                 name={company.name}
                                 location={company.city}>
                                 <p className={"truncate ..."}>{company.description}</p>
+                                <MediumButton to={`/company/${company.id}/info`} bg={"bg-magenta"} bgHover={"bg-primary"} className={ "w-fit text-white m-2"}>More information</MediumButton>
                             </CompanyShort>
                         )
                     }

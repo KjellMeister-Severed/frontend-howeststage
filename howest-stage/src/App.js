@@ -8,18 +8,19 @@ import Home from './pages/Home';
 import Legal from "./pages/legal/Legal";
 
 function App() {
-  return (
-    <MsalProvider instance={ msalInstance }>
-      <div className={"App"}>
-        <Routes>
-            <Route path={"/"} element={<Home />} />
-            <Route path={"/legal"} element={<Legal/>} />
-            <Route path={"/dashboard/student"} element={<StudentDashboard />} />
-            <Route path={"/dashboard/company"} element={<CompanyDashboard />} />
-        </Routes>
-      </div>
-    </MsalProvider>
-  );
+    return (
+        <MsalProvider instance={msalInstance}>
+            <div className={"App"}>
+                <Routes>
+                    <Route path={"/"} element={<Home />} />
+                    <Route path={"/legal"} element={<Legal />} />
+                    <Route path={"/dashboard/student"} element={<StudentDashboard />} />
+                    <Route path={"/dashboard/company"} element={<CompanyDashboard />} />
+                    <Route path={"/company/:id/info"} element={<CompanyDashboard />} />
+                </Routes>
+            </div>
+        </MsalProvider>
+    );
 }
 
 export default App;
