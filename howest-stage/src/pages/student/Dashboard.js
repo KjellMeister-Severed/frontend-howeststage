@@ -27,7 +27,7 @@ class StudentDashboard extends Component {
     }
 
     handleSearchFilter = (event) => {
-        let filteredList = this.state.allcompanies.filter(company => company.name.includes(event.target.value));
+        let filteredList = this.state.allcompanies.filter(company => company.name.toLowerCase().includes(event.target.value.toLowerCase()));
         this.setState((state) => ({
             companies: filteredList,
         }))
@@ -36,7 +36,6 @@ class StudentDashboard extends Component {
     render() {
 
         const { companies } = this.state;
-        console.log(this.context.accounts[0])
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
