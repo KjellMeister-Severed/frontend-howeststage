@@ -1,9 +1,6 @@
 import {Component} from "react";
 
 class StudentCompanyList extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <section className={"flex-shrink p-2 w-3/4"}>
