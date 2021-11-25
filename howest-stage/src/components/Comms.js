@@ -1,12 +1,16 @@
 "use strict";
 
-export async function fetchFromBackend(bearer="", method="GET", endpoint, body = {}){
-    return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint, {
+export async function fetchFromBackend(endpoint, method = "GET", body = {}, bearer = "") {
+    let request = {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${bearer}`
         },
-        body: JSON.stringify(body)
-    })).json();
+    }
+    if (body !== {}){
+        request.body = body;
+    }
+    console.log(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint)
+    return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint)).json();
 }
 

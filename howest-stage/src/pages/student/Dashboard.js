@@ -5,6 +5,7 @@ import UniversalHeader from "../../components/UniversalHeader"
 import {Component} from "react";
 import StudentAppointments from "../../components/Student/Appointments";
 import StudentCompanyList from "../../components/Student/Companies";
+import {fetchFromBackend} from "../../components/Comms";
 import { MsalContext } from "@azure/msal-react";
 
 class StudentDashboard extends Component {
@@ -19,12 +20,10 @@ class StudentDashboard extends Component {
     };
 
     componentDidMount() {
-        fetch('http://localhost:3001/api/companies')
-            .then(response => response.json())
-            .then(data => this.setState(() => ({
-                allcompanies: data,
-                companies: data
-            })));
+        fetchFromBackend("/api/companies").then(data => this.setState(() => ({
+            allcompanies: data,
+            companies: data
+        })));
     }
 
     handleSearchFilter = (event) => {
