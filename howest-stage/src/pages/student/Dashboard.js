@@ -5,6 +5,7 @@ import UniversalHeader from "../../components/UniversalHeader"
 import {Component} from "react";
 import StudentAppointments from "../../components/Student/Appointments";
 import StudentCompanyList from "../../components/Student/Companies";
+import {fetchFromBackend} from "../../components/Comms";
 import { MsalContext } from "@azure/msal-react";
 
 class StudentDashboard extends Component {
@@ -19,16 +20,14 @@ class StudentDashboard extends Component {
     };
 
     componentDidMount() {
-        fetch(`${process.env.REACT_APP_BACK_END_ENDPOINT}:${process.env.REACT_APP_BACK_END_PORT}/api/companies`)
-            .then(response => response.json())
-            .then(data => this.setState(() => ({
-                allcompanies: data,
-                companies: data
-            })));
+            fetchFromBackend("/api/companies").then(data => this.setState(() => ({
+            allcompanies: data,
+            companies: data
+        })));
     }
 
     handleSearchFilter = (event) => {
-        let filteredList = this.state.allcompanies.filter(company => company.name.includes(event.target.value));
+        let filteredList = this.state.allcompanies.filter(company => company.name.toLowerCase().includes(event.target.value.toLowerCase()));
         this.setState((state) => ({
             companies: filteredList,
         }))
@@ -36,7 +35,6 @@ class StudentDashboard extends Component {
 
     render() {
         const { companies } = this.state;
-        console.log(this.context.accounts[0])
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
