@@ -1,5 +1,4 @@
 import {Component} from "react";
-import StudentAppointment from "./Appointment";
 
 class StudentAppointments extends Component {
     render() {
