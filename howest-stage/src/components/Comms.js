@@ -1,6 +1,4 @@
-"use strict";
-
-export async function fetchFromBackend(endpoint, method = "GET", body = {}, bearer = "") {
+export async function fetchFromBackend(endpoint, method = "GET", bearer = "", body = {}) {
     let request = {
         headers: {
             'Content-Type': 'application/json',

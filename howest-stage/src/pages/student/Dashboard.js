@@ -20,10 +20,16 @@ class StudentDashboard extends Component {
     };
 
     componentDidMount() {
-        fetchFromBackend("/api/companies").then(data => this.setState(() => ({
-            allcompanies: data,
-            companies: data
-        })));
+        this.context.instance.setActiveAccount(this.context.accounts[0])
+        let tokenRequest = {
+            scopes: ["user.read"]
+        };
+        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+            fetchFromBackend("/api/companies", "GET", response ).then(data => this.setState(() => ({
+                allcompanies: data,
+                companies: data
+            })));
+        })
     }
 
     handleSearchFilter = (event) => {
