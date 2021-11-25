@@ -1,21 +1,23 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
+import { fetchFromBackend } from "../Comms";
 
 export default function CompanyInfo(props){
     let [company, setCompany] = useState('')
 
+    
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACK_END_ENDPOINT}:${process.env.REACT_APP_BACK_END_PORT}/api/companies/${props.id}`)
-            .then(data => data.json())
+        fetchFromBackend(`/api/companies/${props.id}`)
             .then(json => {
                 json.lookingfor = json.lookingfor.split(/\r?\n/)
                 setCompany(json)
             })
     }, [props.id])
 
-    function iterateLF(){
+    function IterateLF(props) {
         let i = 0
+        console.log(company)
         return company.lookingfor.map(item => {
-            let res = (<p key={i}>{item}</p>)
+            let res = (<p key={i} className={props.className}>{item}</p>)
             i = i + 1
             return res
         })
@@ -34,9 +36,7 @@ export default function CompanyInfo(props){
                     <p>{company.website}</p>
                 </SubInfo>
                 <SubInfo heading="Looking for">
-                    {
-                        iterateLF()
-                    }
+                    {company !== '' ? <IterateLF/> : <p>Loading...</p> }
                 </SubInfo>
             </div>
             <div>
@@ -46,11 +46,14 @@ export default function CompanyInfo(props){
     )
 }
 
+
 function SubInfo(props) {
     return (
-        <section className={"flex flex-col items-center"}>
+        <section className={"flex flex-col items-center mb-2"}>
             <h3 className={"font-vag underline text-xl"}>{props.heading}</h3>
             {props.children}
         </section>
     );
 }
+
+
