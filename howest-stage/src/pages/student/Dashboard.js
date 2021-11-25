@@ -84,6 +84,14 @@ class StudentDashboard extends Component {
                                     className={"w-fit text-white m-2"}>
                                     More information
                                 </MediumButton>
+                                { console.log(company) }
+                                <MediumButton
+                                    to={company.bookingsUrl}
+                                    bg={"bg-magenta"}
+                                    bgHover={"bg-primary"}
+                                    className={"w-fit text-white m-2"}>
+                                    Book a meeting
+                                </MediumButton>
                             </CompanyShort>
                         )
                     }
