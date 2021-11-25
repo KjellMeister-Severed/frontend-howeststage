@@ -10,7 +10,7 @@ export async function fetchFromBackend(endpoint, method = "GET", body = {}, bear
     if (body !== {}){
         request.body = body;
     }
-    console.log(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint)
+
     return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint)).json();
 }
 
