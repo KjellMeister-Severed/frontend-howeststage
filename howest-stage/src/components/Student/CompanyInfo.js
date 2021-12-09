@@ -15,7 +15,6 @@ export default function CompanyInfo(props){
 
     function IterateLF(props) {
         let i = 0
-        console.log(company)
         return company.lookingfor.map(item => {
             let res = (<p key={i} className={props.className}>{item}</p>)
             i = i + 1
