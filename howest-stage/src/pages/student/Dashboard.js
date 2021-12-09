@@ -25,7 +25,10 @@ class StudentDashboard extends Component {
             scopes: ["user.read"]
         };
         this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
-            fetchFromBackend("/api/user/"+this.context.accounts[0].username+"/appointments", "GET", response.accessToken).then(data => console.log(data))
+            fetchFromBackend("/api/user/"+this.context.accounts[0].username+"/appointments", "GET", response.accessToken).then(data => {this.setState(() => ({
+                appointments: data
+            }))
+            console.log(data)})
         })
         this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
             fetchFromBackend("/api/companies", "GET", response.accessToken ).then(data => this.setState(() => ({
@@ -44,6 +47,7 @@ class StudentDashboard extends Component {
 
     render() {
         const { companies, appointments } = this.state;
+        console.log(appointments)
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
@@ -52,11 +56,14 @@ class StudentDashboard extends Component {
                 <main className="flex flex-row pt-20 gap-2 mt-18">
                     <StudentAppointments >
                         {
-
-                                /*<StudentAppointment
-                                company={"Google"}
-                                date={new Date()}
-                                meeting={"https://meet.jit.si/"}/>*/
+                            appointments !== undefined &&
+                            appointments.map(appointment =>
+                                <StudentAppointment
+                                    key={appointments}
+                                    company={appointment.staffMemberIds[0]}
+                                    date={new Date().getTime()}
+                                    meeting={"https://meet.jit.si/" + appointment.staffMemberIds[0] + "/" + "5d4df7a5-6716-4f95-83ed-a0dfe93100fb"}
+                                />)
                         }
 
                     </StudentAppointments>
