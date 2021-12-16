@@ -31,7 +31,7 @@ class CompanySignIn extends Component {
                     err.message = "No account associated with this email"
                     throw err
                 }
-                this.setState((state) => ({ success: "The e-mail has been send. Please follow the instructions inside" }))
+                this.setState((state) => ({ success: "The e-mail has been send. Please follow the instructions inside." }))
             })
             .catch(error => {
                 this.setState((state) => ({error: error.message}))
@@ -42,13 +42,17 @@ class CompanySignIn extends Component {
         return (
             <section className={"flex flex-col items-center m-2 lg:flex-col gap-2 lg:gap-0.5"}>
                 {this.state.success !== "" &&
-                    <aside>
-                        <p>{this.state.success}</p>
+                    <aside className={"rounded border-2 border-teal border-solid"}>
+                        <h3 className={ "bg-teal text-white p-1 font-bold"}>Success!</h3>
+                        <p className={"p-1"}>{this.state.success}</p>
                     </aside>
                 }
                 {this.state.error !== "" &&
                     <aside>
-                        <p>{this.state.error}</p>
+                        <aside className={"rounded border-2 border-magenta border-solid"}>
+                            <h3 className={"bg-magenta text-white p-1 font-bold"}>Not successful!</h3>
+                            <p className={"p-1"}>{this.state.error}</p>
+                        </aside>
                     </aside>
                 }
                 <p>Just enter you email and we'll send you a sign-in link</p>
