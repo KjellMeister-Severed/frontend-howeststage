@@ -7,13 +7,11 @@ import UniversalFooter from "../components/UniversalFooter";
 import StudentDashboard from "./student/Dashboard";
 
 const Home = () => {
-
     const { instance } = useMsal();
 
     return (
         <>
             <UnauthenticatedTemplate>
-                <UniversalHeader className="h-24 flex-initial w-screen fixed" logo={ true }/>
                 <main className={"flex flex-col lg:flex-row h-auto flex-auto"}>
                     <aside>
                         <img src={index_picture} alt="People meeting" className={"object-cover lg:h-screen"}/>
@@ -36,9 +34,8 @@ const Home = () => {
                         </nav>
                     </article>
                 </main>
-                <UniversalFooter className={"h-20 w-screen"} />
+                <UniversalFooter className={"h-12 w-screen"} />
             </UnauthenticatedTemplate>
-            
             <AuthenticatedTemplate>
                 <StudentDashboard/>
             </AuthenticatedTemplate>
