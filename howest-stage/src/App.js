@@ -17,7 +17,7 @@ function App() {
                     <Route path={"/legal"} element={<Legal />} />
                     <Route path={"/dashboard/student"} element={<StudentDashboard />} />
                     <Route path={"/dashboard/company"} element={<CompanyDashboard />} />
-                    <Route path={"/company/:id/info"} element={<StudentCompanyInfo/>} component={StudentCompanyInfo} />
+                    <Route path={"/company/:id/info"} element={<StudentCompanyInfo />} component={StudentCompanyInfo} />
                 </Routes>
             </div>
         </MsalProvider>
