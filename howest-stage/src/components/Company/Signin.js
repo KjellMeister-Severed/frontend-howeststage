@@ -5,7 +5,8 @@ function CompanySignIn() {
             <p>Just enter you email and we'll send you a sign-in link</p>
             <form>
                 <label for={"email"}>Email: </label>
-                <input type={"email"} name={"email"} placeholder={"yourname@youremail.com"} className={"border-solid border-2 p-1"}/>
+                <input type={"email"} name={"email"} placeholder={"yourname@youremail.com"} className={"border-solid border-2 p-1"} />
+                <input type={"submit"} value={"Submit"} className={"p-2 rounded bg-magenta hover:bg-white hover:text-black text-white ml-2"}/>
             </form>
         </section>
     );
