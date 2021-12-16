@@ -56,14 +56,14 @@ class StudentDashboard extends Component {
                 <main className="flex flex-row pt-20 gap-2 mt-18">
                     <StudentAppointments >
                         {
-                            appointments !== undefined &&
+                            appointments !== undefined ?
                             appointments.map(appointment =>
                                 <StudentAppointment
-                                    key={appointments}
-                                    company={appointment.staffMemberIds[0]}
-                                    date={new Date().getTime()}
-                                    meeting={"https://meet.jit.si/" + appointment.staffMemberIds[0] + "/" + "5d4df7a5-6716-4f95-83ed-a0dfe93100fb"}
-                                />)
+                                    key={appointment.id}
+                                    company={appointment.company.name}
+                                    date={new Date(appointment.startTime)}
+                                    meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')}
+                                />) : <p className={"top-2"}>loading appointments...</p>
                         }
 
                     </StudentAppointments>
