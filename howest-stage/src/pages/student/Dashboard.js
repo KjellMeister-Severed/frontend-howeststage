@@ -25,7 +25,13 @@ class StudentDashboard extends Component {
             scopes: ["user.read"]
         };
         this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
-            fetchFromBackend("/api/companies", "GET", response ).then(data => this.setState(() => ({
+            fetchFromBackend("/api/user/"+this.context.accounts[0].username+"/appointments", "GET", response.accessToken).then(data => {this.setState(() => ({
+                appointments: data
+            }))
+            console.log(data)})
+        })
+        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+            fetchFromBackend("/api/companies", "GET", response.accessToken ).then(data => this.setState(() => ({
                 allcompanies: data,
                 companies: data
             })));
@@ -40,7 +46,8 @@ class StudentDashboard extends Component {
     }
 
     render() {
-        const { companies } = this.state;
+        const { companies, appointments } = this.state;
+        console.log(appointments)
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
@@ -48,26 +55,17 @@ class StudentDashboard extends Component {
                 </UniversalHeader>
                 <main className="flex flex-row pt-20 gap-2 mt-18">
                     <StudentAppointments >
-                        <StudentAppointment
-                        company={"Google"}
-                        date={new Date()}
-                        meeting={"https://meet.jit.si/"}/>
-                        <StudentAppointment
-                            company={"Google"}
-                            date={new Date()}
-                            meeting={"https://meet.jit.si/"}/>
-                        <StudentAppointment
-                            company={"Google"}
-                            date={new Date()}
-                            meeting={"https://meet.jit.si/"}/>
-                        <StudentAppointment
-                            company={"Google"}
-                            date={new Date()}
-                            meeting={"https://meet.jit.si/"}/>
-                        <StudentAppointment
-                            company={"Google"}
-                            date={new Date()}
-                            meeting={"https://meet.jit.si/"}/>
+                        {
+                            appointments !== undefined ?
+                            appointments.map(appointment =>
+                                <StudentAppointment
+                                    key={appointment.id}
+                                    company={appointment.company.name}
+                                    date={new Date(appointment.startTime)}
+                                    meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')}
+                                />) : <p className={"top-2"}>loading appointments...</p>
+                        }
+
                     </StudentAppointments>
                     <StudentCompanyList onChange={this.handleSearchFilter}>
                     {
@@ -77,21 +75,22 @@ class StudentDashboard extends Component {
                                 name={company.name}
                                 location={company.city}>
                                 <p className={"truncate ..."}>{company.description}</p>
-                                <MediumButton
-                                    to={`/company/${company.id}/info`}
-                                    bg={"bg-magenta"}
-                                    bgHover={"bg-primary"}
-                                    className={"w-fit text-white m-2"}>
-                                    More information
-                                </MediumButton>
-                                { console.log(company) }
-                                <MediumButton
-                                    to={company.bookingsUrl}
-                                    bg={"bg-magenta"}
-                                    bgHover={"bg-primary"}
-                                    className={"w-fit text-white m-2"}>
-                                    Book a meeting
-                                </MediumButton>
+                                <div className={"flex"}>
+                                    <MediumButton
+                                        to={`/company/${company.id}/info`}
+                                        bg={"bg-magenta"}
+                                        bgHover={"bg-primary"}
+                                        className={"w-fit text-white m-2"}>
+                                        More information
+                                    </MediumButton>
+                                    <MediumButton
+                                        to={company.bookingsUrl}
+                                        bg={"bg-magenta"}
+                                        bgHover={"bg-primary"}
+                                        className={"w-fit text-white mb-2 mr-2 mt-2"}>
+                                        Book a meeting
+                                    </MediumButton>
+                                </div>
                             </CompanyShort>
                         )
                     }
