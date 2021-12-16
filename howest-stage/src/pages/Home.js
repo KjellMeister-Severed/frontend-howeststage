@@ -5,31 +5,37 @@ import LargeButton from "../components/LargeButton";
 import UniversalHeader from "../components/UniversalHeader";
 import UniversalFooter from "../components/UniversalFooter";
 import StudentDashboard from "./student/Dashboard";
+import {useNavigate} from "react-router-dom";
+
 
 const Home = () => {
     const { instance } = useMsal();
+    const navigate = useNavigate();
+
+    const redirect = () => {
+        navigate('/dashboard/company')
+    }
 
     return (
         <>
             <UnauthenticatedTemplate>
-                <main className={"flex flex-col lg:flex-row h-auto flex-auto"}>
+                <main className={"flex flex-col md:flex-row h-auto flex-auto"}>
                     <aside>
-                        <img src={index_picture} alt="People meeting" className={"object-cover lg:h-screen"}/>
+                        <img src={index_picture} alt="People meeting" className={"object-cover h-1/3 md:h-screen"}/>
                     </aside>
-                    <article className={"flex flex-col w-3/4 items-center mx-auto lg:justify-center"}>
-                        <figure className={"flex flex-col w-60 items-center"}>
-                            <img src={howest_full} alt="HoWest"/>
-                            <figcaption>
-                                <span className={"font-vagbold text-xl tracking-wide text-magenta"}>Stage Booker </span>Login
-                            </figcaption>
-                        </figure>
-                        <nav className={"flex flex-row items-center m-2 lg:flex-col gap-2 lg:gap-0.5"}>
-                            <LargeButton onClick={() => instance.loginRedirect()} bg={"bg-blue"}>
-                                Login as student
+                    <article className={"flex flex-col w-full items-center md:mx-auto md:justify-center"}>
+                        <div className={"mb-8 mt-4 w-full"}>
+                            <h3 className={"text-xl text-magenta font-vag text-center"}>Howest Booking</h3>
+                            <h1 className={"text-4xl font-vagbold text-center"}>Welcome Back!</h1>
+                            <h2 className={"text-lg font-vag text-center"}>login</h2>
+                        </div>
+                        <nav className={"w-3/4 flex flex-col items-center"}>
+                            <LargeButton onClick={() => instance.loginRedirect()} className={"bg-teal rounded font-bold text-white p-2 text-center w-full mb-2 md:w-1/3 md:mx-auto"}>
+                                As a student
                             </LargeButton>
-                            <p className={"font-vagbold"}>or</p>
-                            <LargeButton to={"/dashboard/company"} bg={"bg-blue"}>
-                                Login as company
+                            <p className={"font-vag text-center text-gray-400"}>or</p>
+                            <LargeButton onClick={redirect} className={"bg-black rounded font-bold text-white p-2 w-full text-center mt-2 md:w-1/3 md:mx-auto"}>
+                                As a company
                             </LargeButton>
                         </nav>
                     </article>

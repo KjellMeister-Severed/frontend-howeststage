@@ -5,7 +5,7 @@ class MediumButton extends Component {
     render() {
         return (
             <UniLink to={this.props.to}
-                className={`p-2 rounded ${this.props.textColor} ${this.props.bg} ${(this.props.bgHover !== "") ? "hover:".concat(this.props.bgHover) : ""} ${this.props.className}`}
+                className={`rounded ${this.props.textColor} ${this.props.bg} ${(this.props.bgHover !== "") ? "hover:".concat(this.props.bgHover) : ""} ${this.props.className}`}
                 onClick={this.props.onClick}>
                 {this.props.children}
             </UniLink>
