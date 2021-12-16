@@ -1,33 +1,33 @@
 import { Component } from 'react';
+import moment from 'moment';
 import MediumButton from '../MediumButton';
-
 
 class CompanyAppointment extends Component {
     constructor(props) {
         super(props);
-        this.state = { open: false };
+        this.state = { open: false, formattedTime: formatTime(props.time) };
         this.changeDetailsVisibility = this.changeDetailsVisibility.bind(this)
     }
 
     changeDetailsVisibility(){
-        console.log("Activatedè!")
+        console.log("Activated!")
         this.setState((state) =>({
             open: !state.open
         }))
     }
 
     render() {
+        const { formattedTime } = this.state;
         return (
             <details className={"border border-solid"} open={ (this.state.open) ? "open" : ""}>
                 <summary className={"flex flex-row justify-between items-center border-b border-solid p-2 font-vag"}>
-                    <p>Appointment with {this.props.person} at {this.props.time}</p>
+                    <p>Appointment with {this.props.person} at {formattedTime}</p>
                     <MediumButton bg="bg-blue" className={"hover:text-white"} textColor={ "text-white" } onClick={this.changeDetailsVisibility}>View details</MediumButton>
                 </summary>
                 <div className={ "flex flex-row justify-between items-center p-1 bg-teal text-white"}>
                     <div className={"flex p-2 flex-row gap-4"}>
-                        <AppointmentDetail title={"Time"} info={this.props.time} />
+                        <AppointmentDetail title={"Time"} info={formattedTime} />
                         <AppointmentDetail title={"Location"} info={this.props.location} />
-                        <AppointmentDetail title={"Study"} info={this.props.study} />
                     </div>
                     <div className={"p-2 flex flex-col items-end font-vag gap-2"}>
                         <MediumButton to={this.props.cv} alt="Link to CV" bg={"bg-white"} textColor={ "text-black hover:text-white"}>View CV</MediumButton>
@@ -49,6 +49,14 @@ class AppointmentDetail extends Component {
             </section>
         );
     }
+}
+
+function formatTime(timestamp) {
+    const appointmentTime = moment(timestamp);
+    if(moment().day() === appointmentTime.day()) {
+        return appointmentTime.format("HH:mm");;
+    }
+    return appointmentTime.format("YYYY-MM-DD HH:mm");
 }
 
 export default CompanyAppointment
