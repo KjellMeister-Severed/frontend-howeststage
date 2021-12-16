@@ -6,7 +6,8 @@ class CompanySignIn extends Component {
         super(props);
         this.state = {
             email: "",
-            errorbag: []
+            error: "",
+            success: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -19,32 +20,37 @@ class CompanySignIn extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        this.setState((state) => state.errorbag, this.generateMagicLink)
-        
-        
+        this.setState((state) => ({errorbag: [], successbag: []}), this.generateMagicLink)
     }
 
-    generateMagicLink() { 
-        fetchFromBackend("/api/companies", "GET").then(data => {
-            const results = data.filter(company => company.email === this.state.email)
-            if (results.length === 0) {
-                this.setState((state) => {
-                    state.errorbag.push("No account was found with the given email")
-                })
-            }
-        })
+    generateMagicLink() {
+        fetchFromBackend(`/api/companies/${this.state.email}/generatemagiclink`, "POST")
+            .then(response => {
+                if (response.error) { 
+                    let err = new Error()
+                    err.message = "No account associated with this email"
+                    throw err
+                }
+                this.setState((state) => ({ success: "The e-mail has been send. Please follow the instructions inside" }))
+            })
+            .catch(error => {
+                this.setState((state) => ({error: error.message}))
+            })
     }
 
     render() {
         return (
             <section className={"flex flex-col items-center m-2 lg:flex-col gap-2 lg:gap-0.5"}>
-                <aside>
-                    {this.state.errorbag.length > 0 &&
-                        <ul>
-                            {this.state.errorbag.map(error => <li className="list-disc">{error}</li>)}
-                        </ul>
-                    }
-                </aside>
+                {this.state.success !== "" &&
+                    <aside>
+                        <p>{this.state.success}</p>
+                    </aside>
+                }
+                {this.state.error !== "" &&
+                    <aside>
+                        <p>{this.state.error}</p>
+                    </aside>
+                }
                 <p>Just enter you email and we'll send you a sign-in link</p>
                 <form onSubmit={this.handleSubmit}>
                     <label>Email: </label>
