@@ -75,20 +75,22 @@ class StudentDashboard extends Component {
                                 name={company.name}
                                 location={company.city}>
                                 <p className={"truncate ..."}>{company.description}</p>
-                                <MediumButton
-                                    to={`/company/${company.id}/info`}
-                                    bg={"bg-magenta"}
-                                    bgHover={"bg-primary"}
-                                    className={"w-fit text-white m-2"}>
-                                    More information
-                                </MediumButton>
-                                <MediumButton
-                                    to={company.bookingsUrl}
-                                    bg={"bg-magenta"}
-                                    bgHover={"bg-primary"}
-                                    className={"w-fit text-white m-2"}>
-                                    Book a meeting
-                                </MediumButton>
+                                <div className={"flex"}>
+                                    <MediumButton
+                                        to={`/company/${company.id}/info`}
+                                        bg={"bg-magenta"}
+                                        bgHover={"bg-primary"}
+                                        className={"w-fit text-white m-2"}>
+                                        More information
+                                    </MediumButton>
+                                    <MediumButton
+                                        to={company.bookingsUrl}
+                                        bg={"bg-magenta"}
+                                        bgHover={"bg-primary"}
+                                        className={"w-fit text-white mb-2 mr-2 mt-2"}>
+                                        Book a meeting
+                                    </MediumButton>
+                                </div>
                             </CompanyShort>
                         )
                     }
