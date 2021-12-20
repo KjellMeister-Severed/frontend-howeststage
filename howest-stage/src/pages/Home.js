@@ -8,8 +8,8 @@ import StudentDashboard from "./student/Dashboard";
 import { useState } from "react";
 import CompanySignIn from "../components/Company/Signin";
 
-const Home = () => {
 
+const Home = () => {
     const { instance } = useMsal();
     const [companySignIn, setCompanySignIn] = useState(false)
 
@@ -35,7 +35,7 @@ const Home = () => {
                         }
                     </article>
                 </main>
-                <UniversalFooter className={"h-20 w-screen"} />
+                <UniversalFooter className={"h-12 w-screen"} />
             </UnauthenticatedTemplate>
 
             <AuthenticatedTemplate>
