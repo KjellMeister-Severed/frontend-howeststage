@@ -1,5 +1,6 @@
 export async function fetchFromBackend(endpoint, method = "GET", bearer = "", body = {}) {
     let request = {
+        method: method,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${bearer}`
@@ -10,6 +11,7 @@ export async function fetchFromBackend(endpoint, method = "GET", bearer = "", bo
 
 export async function fetchFileFromBackend(endpoint, method = "GET", bearer = "", body = {}) {
     let request = {
+        method: method,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${bearer}`

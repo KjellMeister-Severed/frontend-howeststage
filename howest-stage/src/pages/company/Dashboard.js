@@ -40,6 +40,7 @@ class CompanyDashboard extends Component {
                         appointments.map(appointment => 
                             <CompanyAppointment
                             key={appointment.id}
+                            bookingsId={appointment.bookingsId}
                             className={"inline-block"}
                             person={appointment.customer.name}
                             personId={appointment.customer.id}

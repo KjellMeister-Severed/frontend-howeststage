@@ -1,14 +1,25 @@
 import { Component } from 'react';
-import { fetchFileFromBackend } from "../../components/Comms"
+import { fetchFromBackend, fetchFileFromBackend } from "../../components/Comms"
 import moment from 'moment';
 import MediumButton from '../MediumButton';
 
 class CompanyAppointment extends Component {
     constructor(props) {
         super(props);
-        this.state = { open: false, formattedTime: formatTime(props.time) };
+        this.state = { open: false, formattedTime: formatTime(props.time), hasCV: false };
         this.changeDetailsVisibility = this.changeDetailsVisibility.bind(this)
     }
+
+    componentDidMount() {
+        fetchFromBackend(`/api/user/${this.props.personId}`, 
+        "GET", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw")
+        .then(user => {
+            const hasCV = user.cv_path != null;
+            this.setState(() => ({
+                hasCV: hasCV
+            }));
+        });
+    }    
 
     changeDetailsVisibility(){
         console.log("Activated!")
@@ -18,7 +29,7 @@ class CompanyAppointment extends Component {
     }
 
     render() {
-        const { formattedTime } = this.state;
+        const { formattedTime, hasCV } = this.state;
         return (
             <details className={"border border-solid"} open={ (this.state.open) ? "open" : ""}>
                 <summary className={"flex flex-row justify-between items-center border-b border-solid p-2 font-vag"}>
@@ -31,9 +42,11 @@ class CompanyAppointment extends Component {
                         <AppointmentDetail title={"Location"} info={this.props.location} />
                     </div>
                     <div className={"p-2 flex flex-col items-end font-vag gap-2"}>
-                        <MediumButton to={this.props.cv} alt="Link to CV" bg={"bg-white"} textColor={ "text-black hover:text-white"} onClick={() => downloadCV(this.props.personId, this.props.person)}>View CV</MediumButton>
+                        {hasCV &&
+                            <MediumButton to={this.props.cv} alt="Link to CV" bg={"bg-white"} textColor={ "text-black hover:text-white"} onClick={() => downloadCV(this.props.personId, this.props.person)}>View CV</MediumButton>
+                        }
                         <MediumButton to={this.props.meeting} alt="Link to meeting link" bg={ "bg-white"} textColor={ "text-black hover:text-white"}>Go to meeting</MediumButton>
-                        <MediumButton bg={"bg-white"} textColor={"text-black hover:text-white"}>Cancel Appointment</MediumButton>
+                        <MediumButton bg={"bg-white"} textColor={"text-black hover:text-white"} onClick={() => cancelAppointment(this.props.personId, this.props.bookingsId)}>Cancel Appointment</MediumButton>
                     </div>
                 </div>
             </details>
@@ -69,6 +82,16 @@ function downloadCV(userId, userName) {
         tempLink.href = cvURL;
         tempLink.setAttribute('download', `${userName} CV.pdf`);
         tempLink.click();
+    });
+}
+
+function cancelAppointment(userId, appointmentId) {
+    fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw")
+    .then(res => {
+        if(res.result) {
+            window.location.reload();
+        }
     });
 }
 
