@@ -47,11 +47,23 @@ class StudentDashboard extends Component {
 
     render() {
         const { companies, appointments } = this.state;
-        console.log(appointments)
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
-                    <MediumButton className={"border-2 border-white rounded bg-magenta mr-5"} onClick={() => this.context.instance.logoutRedirect()} textColor={"text-white"}>Logout</MediumButton>
+                    <MediumButton
+                        className={"justify-self-start hover:text-black"}
+                        bg={"bg-magenta"}
+                        bgHover={"bg-white"}
+                        textColor={"text-white"}
+                        to={"/dashboard/student/profile"}>
+                        Profile
+                    </MediumButton>
+                    <MediumButton
+                        className={"border-2 border-white rounded bg-magenta mr-5"}
+                        onClick={() => this.context.instance.logoutRedirect()}
+                        textColor={"text-white"}>
+                        Logout
+                    </MediumButton>
                 </UniversalHeader>
                 <main className="flex flex-row pt-20 gap-2 mt-18">
                     <StudentAppointments >
@@ -74,21 +86,20 @@ class StudentDashboard extends Component {
                                 key={company.id}
                                 name={company.name}
                                 location={company.city}>
-                                <p className={"truncate ..."}>{company.description}</p>
-                                <div className={"flex"}>
+                                <p className={"font-vag truncate ..."}>{company.description}</p>
+                                <div className={"flex mb-4"}>
                                     <MediumButton
                                         to={`/company/${company.id}/info`}
                                         bg={"bg-magenta"}
                                         bgHover={"bg-primary"}
-                                        className={"w-fit text-white m-2"}>
+                                        className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
                                         More information
                                     </MediumButton>
                                     <MediumButton
                                         to={company.bookingsUrl}
-                                        bg={"bg-magenta"}
-                                        bgHover={"bg-primary"}
-                                        className={"w-fit text-white mb-2 mr-2 mt-2"}>
-                                        Book a meeting
+                                        bgHover={"bg-none"}
+                                        className={"p-2 text-teal font-vag w-fit mb-2 mr-2 mt-2 ml-0 pl-0 pb-0 font-bold h-fit hover:underline"}>
+                                        Book a meeting...
                                     </MediumButton>
                                 </div>
                             </CompanyShort>
