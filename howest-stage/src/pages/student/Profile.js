@@ -4,6 +4,7 @@ import UniversalHeader from "../../components/UniversalHeader";
 import MediumButton from "../../components/MediumButton";
 import { fetchFromBackend } from "../../components/Comms";
 import HeroBanner from "../../components/Student/HeroBanner";
+import UpdateProfileForm from "../../components/Student/UpdateProfile";
 
 export default class StudentProfile extends Component {
     static contextType = MsalContext
@@ -60,6 +61,7 @@ export default class StudentProfile extends Component {
                         <DisplayEntry title="CV" entry={this.state.cv} missingText="Not yet uploaded" />
                         <DisplayEntry title="LinkedIn" entry={this.state.linkedin} missingText="Not yet set"/>
                     </HeroBanner>
+                    <UpdateProfileForm/>
                 </main>
             </>
         )
