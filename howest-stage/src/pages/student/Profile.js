@@ -56,7 +56,7 @@ export default class StudentProfile extends Component {
                 </UniversalHeader>
                 <main className="pt-24 gap-2 mt-18 mx-5 font-vag">
                     <HeroBanner name={this.state.name}>
-                        <p><span className={"underline"}>Email:</span>{this.state.email}</p>
+                        <p><span className={"underline"}>Email:</span> {this.state.email}</p>
                         <DisplayEntry title="CV" entry={this.state.cv} missingText="Not yet uploaded" />
                         <DisplayEntry title="LinkedIn" entry={this.state.linkedin} missingText="Not yet set"/>
                     </HeroBanner>
@@ -68,11 +68,11 @@ export default class StudentProfile extends Component {
 
 function DisplayEntry(props) {
     return (
-        <p><span className={"underline mr-3"}>{props.title}:</span> {
+        <p><span className={"underline"}>{props.title}:</span> {
             (props.entry)
                 ? <MediumButton
                     to={props.entry}
-                    className={"hover:text-black hover:border-black border border-solid"}
+                    className={"hover:text-black hover:border-black border border-solid ml-3"}
                     bg={"bg-teal"}
                     bgHover={"bg-white"}
                     textColor={"text-white"}>Available!</MediumButton>

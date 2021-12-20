@@ -1,5 +1,3 @@
-import MediumButton from "../MediumButton";
-
 function HeroBanner(props) {
     return ( 
         <div className={"flex flex-row justify-center gap-10 flex-wrap"}>
