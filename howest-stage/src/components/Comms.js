@@ -1,14 +1,11 @@
-export async function fetchFromBackend(endpoint, method = "GET", bearer = "", body = {}) {
+export async function fetchFromBackend(endpoint, method = "GET", bearer = "") {
     let request = {
+        method: method,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${bearer}`
-        },
+        }
     }
-    if (body !== {}){
-        request.body = body;
-    }
-
-    return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint)).json();
+    return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint, request)).json();
 }
 
