@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { fetchFileFromBackend } from "../../components/Comms"
 import moment from 'moment';
 import MediumButton from '../MediumButton';
 
@@ -30,7 +31,7 @@ class CompanyAppointment extends Component {
                         <AppointmentDetail title={"Location"} info={this.props.location} />
                     </div>
                     <div className={"p-2 flex flex-col items-end font-vag gap-2"}>
-                        <MediumButton to={this.props.cv} alt="Link to CV" bg={"bg-white"} textColor={ "text-black hover:text-white"}>View CV</MediumButton>
+                        <MediumButton to={this.props.cv} alt="Link to CV" bg={"bg-white"} textColor={ "text-black hover:text-white"} onClick={() => downloadCV(this.props.personId, this.props.person)}>View CV</MediumButton>
                         <MediumButton to={this.props.meeting} alt="Link to meeting link" bg={ "bg-white"} textColor={ "text-black hover:text-white"}>Go to meeting</MediumButton>
                         <MediumButton bg={"bg-white"} textColor={"text-black hover:text-white"}>Cancel Appointment</MediumButton>
                     </div>
@@ -57,6 +58,18 @@ function formatTime(timestamp) {
         return appointmentTime.format("HH:mm");;
     }
     return appointmentTime.format("YYYY-MM-DD HH:mm");
+}
+
+function downloadCV(userId, userName) {
+    fetchFileFromBackend(`/api/user/${userId}/cv`, 
+    "GET", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw")
+    .then(blob => {
+        const cvURL = window.URL.createObjectURL(blob);
+        const tempLink = document.createElement('a');
+        tempLink.href = cvURL;
+        tempLink.setAttribute('download', `${userName} CV.pdf`);
+        tempLink.click();
+    });
 }
 
 export default CompanyAppointment

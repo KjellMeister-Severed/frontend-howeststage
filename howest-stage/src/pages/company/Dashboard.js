@@ -14,7 +14,7 @@ class CompanyDashboard extends Component {
     };
 
     componentDidMount() {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjM5NjU4MDY5LCJleHAiOjE2Mzk3NDQ0Njl9.lafq0br9UO7qbafOtY_96ImZxNmRV0cNTU61qrwyOoA";
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw";
         fetchFromBackend("/api/companies/appointments", "GET", token).then(data => 
             {
                 this.setState(() => ({
@@ -42,10 +42,10 @@ class CompanyDashboard extends Component {
                             key={appointment.id}
                             className={"inline-block"}
                             person={appointment.customer.name}
+                            personId={appointment.customer.id}
                             time={appointment.startTime}
                             location={"Online"}
-                            cv={"https://borobbrecht.be/docs/CV.pdf"}
-                            meeting={"https://meet.jit.si/"} />
+                            meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')} />
                         )
                     }
                 </main>
