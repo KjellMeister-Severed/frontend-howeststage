@@ -7,6 +7,7 @@ import CompanyDashboard from './pages/company/Dashboard';
 import Home from './pages/Home';
 import Legal from "./pages/legal/Legal";
 import StudentCompanyInfo from './pages/student/CompanyInfo';
+import StudentProfile from './pages/student/Profile';
 import React from 'react';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                         <Route path={"/dashboard/student"} element={<StudentDashboard />} />
                         <Route path={"/dashboard/company"} element={<CompanyDashboard />} />
                         <Route path={"/company/:id/info"} element={<StudentCompanyInfo />} component={StudentCompanyInfo} />
+                        <Route path={"/dashboard/student/profile"} element={<StudentProfile />} component={StudentProfile} />
                     </Routes>
                 </div>
             </React.StrictMode>
