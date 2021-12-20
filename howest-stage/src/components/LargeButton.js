@@ -5,7 +5,7 @@ class LargeButton extends Component {
     render() {
         return (
             <UniLink to={this.props.to} onClick={this.props.onClick}
-                className={`p-5 rounded text-white ${this.props.bg} ${`hover:${this.props.bgHover}`} ${this.props.className}`}>
+                className={this.props.className === undefined ? `p-5 rounded text-white ${this.props.bg} ${`hover:${this.props.bgHover}`} ${this.props.className}`: this.props.className}>
                 {this.props.children}
             </UniLink>
         )
