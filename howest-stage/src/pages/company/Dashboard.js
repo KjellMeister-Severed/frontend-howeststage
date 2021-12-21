@@ -1,29 +1,58 @@
+import { Component } from "react/cjs/react.production.min"
+import { fetchFromBackend } from "../../components/Comms"
 import CompanyAppointment from "../../components/Company/Appointment"
 import MediumButton from "../../components/MediumButton"
 import UniversalHeader from "../../components/UniversalHeader"
 
-const CompanyDashboard = () => {
-    return (
-        <>
-            <UniversalHeader className="h-24 flex-initial" subheader={ "My Appointments"}>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
-                <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 4</MediumButton>
-            </UniversalHeader>
-            <main className={"mx-2 mt-2"}>
-                <CompanyAppointment
-                    className={"inline-block"}
-                    person={"Bo Robbrecht"}
-                    time={"16:00"}
-                    location={"Online"}
-                    study={"Software Engineer"}
-                    cv={"https://borobbrecht.be/docs/CV.pdf"}
-                    meeting={"https://meet.jit.si/"} />
-            </main>
-        </>
+class CompanyDashboard extends Component {
 
-    )
+    constructor(props) {
+        super(props);
+        this.state = {
+            appointments: [],
+        };
+    };
+
+    componentDidMount() {
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw";
+        fetchFromBackend("/api/companies/appointments", "GET", token).then(data => 
+            {
+                this.setState(() => ({
+                    appointments: data
+                }));
+            }
+        )
+    }
+
+    render() {
+        const { appointments } = this.state;
+
+        return (
+            <>
+                <UniversalHeader className="h-24 flex-initial" subheader={ "My Appointments"}>
+                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
+                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
+                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
+                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 4</MediumButton>
+                </UniversalHeader>
+                <main className={"mx-2 mt-2"}>
+                    {
+                        appointments.map(appointment => 
+                            <CompanyAppointment
+                            key={appointment.id}
+                            bookingsId={appointment.bookingsId}
+                            className={"inline-block"}
+                            person={appointment.customer.name}
+                            personId={appointment.customer.id}
+                            time={appointment.startTime}
+                            location={"Online"}
+                            meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')} />
+                        )
+                    }
+                </main>
+            </>
+        )
+    }
 }
 
 export default CompanyDashboard
