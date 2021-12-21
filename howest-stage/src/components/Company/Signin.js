@@ -31,7 +31,7 @@ class CompanySignIn extends Component {
                     err.message = "No account associated with this email"
                     throw err
                 }
-                this.setState({ success: "The e-mail has been send. Please follow the instructions inside." })
+                this.setState({ success: "The e-mail has been sent. Please follow the instructions inside." })
                 this.setState({error: ""})
             })
             .catch(error => {

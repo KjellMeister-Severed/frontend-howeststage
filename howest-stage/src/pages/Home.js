@@ -1,17 +1,31 @@
 import { useMsal, AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+import { useNavigate } from 'react-router-dom';
 import howest_full from './../images/howest_full.png';
 import index_picture from './../images/index_picture.jpg'
 import LargeButton from "../components/LargeButton";
 import UniversalHeader from "../components/UniversalHeader";
 import UniversalFooter from "../components/UniversalFooter";
 import StudentDashboard from "./student/Dashboard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CompanySignIn from "../components/Company/Signin";
-
 
 const Home = () => {
     const { instance } = useMsal();
     const [companySignIn, setCompanySignIn] = useState(false)
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const companyToken = urlParams.get('companyToken');
+
+        if(companyToken != null) {
+            setCookie("companyToken", companyToken, 7);
+        }
+
+        if(getCookie("companyToken")) {
+            navigate("/dashboard/company");
+        }
+    });
 
     return (
         <>
@@ -58,5 +72,28 @@ const Home = () => {
         )
     }
 }
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
 export default Home
