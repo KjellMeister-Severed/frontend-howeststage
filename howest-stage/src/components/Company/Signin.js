@@ -20,7 +20,7 @@ class CompanySignIn extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        this.setState((state) => ({errorbag: [], successbag: []}), this.generateMagicLink)
+        this.setState(() => ({errorbag: [], successbag: []}), this.generateMagicLink)
     }
 
     generateMagicLink() {
@@ -31,10 +31,11 @@ class CompanySignIn extends Component {
                     err.message = "No account associated with this email"
                     throw err
                 }
-                this.setState((state) => ({ success: "The e-mail has been send. Please follow the instructions inside." }))
+                this.setState({ success: "The e-mail has been send. Please follow the instructions inside." })
+                this.setState({error: ""})
             })
             .catch(error => {
-                this.setState((state) => ({error: error.message}))
+                this.setState({error: error.message})
             })
     }
 
@@ -55,7 +56,7 @@ class CompanySignIn extends Component {
                         </aside>
                     </aside>
                 }
-                <p>Just enter you email and we'll send you a sign-in link</p>
+                <p>Enter your company email and we'll send you a sign-in link</p>
                 <form onSubmit={this.handleSubmit}>
                     <label>Email: </label>
                     <input
