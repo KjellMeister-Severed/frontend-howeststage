@@ -30,8 +30,8 @@ class UpdateProfileForm extends Component {
         event.preventDefault()
         if (this.state.cv !== '' && this.state.cv !== undefined) {
             uploadFile("/api/user/cv", { key: 'cv', data: this.state.cv })
-                .then((response) => { this.setState((state) => ({ successbag: [...this.state.successbag, 'CV uploaded successfully'] })) })
-                .catch((response) => { this.setState((state) => ({ errorbag: [...this.state.successbag, response.statusText] })) })
+                .then((response) => { this.setState((state) => ({ successbag: [...this.state.successbag, { key: (this.state.successbag.length + 1), value: 'CV uploaded successfully' }] })) })
+                .catch((response) => { this.setState((state) => ({ errorbag: [...this.state.successbag, { key: (this.state.errorbag.length + 1), value: response.statusText }] })) })
         }
         if (this.state.linkedin !== '' && this.state.linkedin !== undefined) {
             console.log(this.state.linkedin)
@@ -42,18 +42,30 @@ class UpdateProfileForm extends Component {
     render() {
         return (
             <>
-                <div>
-                    {this.state.successbag.length > 0 && (
-                        <ul>
-                            {this.state.successbag.map((msg) => (<li>{ msg }</li>))}
-                        </ul>
-                    )}
-                    {this.state.errorbag.length > 0 && (
-                        <ul>
-                            {this.state.successbag.map((msg) => (<li>{ msg }</li>))}
-                        </ul>
-                    )}
-                </div>
+
+                {this.state.successbag.length > 0 && (
+                    <div className={"rounded border-2 border-teal border-solid w-fit mx-auto ".concat((this.props.className) ? this.props.className : this.props.className)}>
+                        <h3 className={"bg-teal text-white p-1 font-bold"}>Success!</h3>
+                        <div className={"pl-4"}>
+                            <ul>
+                                {this.state.successbag.map((success) => (<li className={"list-disc m-2"}>{success.value}</li>))}
+                            </ul>
+                        </div>
+                    </div>
+                )
+                }
+                {
+                    this.state.errorbag.length > 0 && (
+                        <div className={"rounded border-2 border-magenta border-solid w-fit mx-auto ".concat((this.props.className) ? this.props.className : this.props.className)}>
+                            <h3 className={"bg-magenta text-white p-1 font-bold"}>Something went wrong</h3>
+                            <div className={"pl-4"}>
+                                <ul>
+                                    {this.state.successbag.map((err) => (<li className={"list-disc"}>{err.value}</li>))}
+                                </ul>
+                            </div>
+                        </div>
+                    )
+                }
                 <form onSubmit={this.handleSubmit} className={"flex flex-col gap-2 items-center ".concat((this.props.className) ? this.props.className : this.props.className)}>
                     <label for="cv"> CV:
                         <input type={"file"} accept={".pdf"} id={"cv"} className={"ml-2 w-max"} onChange={this.handleFile} />
