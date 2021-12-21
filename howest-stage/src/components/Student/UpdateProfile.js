@@ -1,8 +1,10 @@
 import { Component } from 'react';
-import { uploadFile } from '../Comms';
-
+import { bodyRequest, uploadFile } from '../Comms';
+import { MsalContext } from "@azure/msal-react";
 
 class UpdateProfileForm extends Component {
+    static contextType = MsalContext
+
     constructor(props) {
         super(props);
         this.state = {
@@ -28,27 +30,33 @@ class UpdateProfileForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        if (this.state.cv !== '' && this.state.cv !== undefined) {
-            uploadFile("/api/user/cv", { key: 'cv', data: this.state.cv })
-                .then((response) => { this.setState((state) => ({ successbag: [...this.state.successbag, { key: (this.state.successbag.length + 1), value: 'CV uploaded successfully' }] })) })
-                .catch((response) => { this.setState((state) => ({ errorbag: [...this.state.successbag, { key: (this.state.errorbag.length + 1), value: response.statusText }] })) })
-        }
-        if (this.state.linkedin !== '' && this.state.linkedin !== undefined) {
-            console.log(this.state.linkedin)
-        }
-        this.forceUpdate()
+        this.context.instance.setActiveAccount(this.context.accounts[0])
+        let tokenRequest = {
+            scopes: ["user.read"]
+        };
+        this.context.instance.acquireTokenSilent(tokenRequest).then(response => { 
+            if (this.state.cv !== '' && this.state.cv !== undefined) {
+                uploadFile("/api/user/cv", { key: 'cv', data: this.state.cv }, response.accessToken)
+                    .then((response) => { this.setState((state) => ({ successbag: [...this.state.successbag, { key: (this.state.successbag.length + 1), value: 'CV uploaded successfully' }] })) })
+                    .catch((response) => { this.setState((state) => ({ errorbag: [...this.state.errorbag, { key: (this.state.errorbag.length + 1), value: response.statusText }] })) })
+            }
+            if (this.state.linkedin !== '' && this.state.linkedin !== undefined) {
+                bodyRequest("/api/user/", { "linkedin_url": this.state.linkedin }, response.accessToken, "PATCH")
+                    .then((response) => this.setState((state) => ({ successbag: [...this.state.successbag, { key: (this.state.successbag.length + 1), value: 'LinkedIn successfully updated' }] })))
+                    .catch((response) => this.setState((state) => ({ errorbag: [...this.state.errorbag, { key: (this.state.errorbag.length + 1), value: response.statusText }] })))
+            }
+        }).catch((err) => this.setState((state) => ({ errorbag: [...this.state.errorbag, {key: (this.state.errorbag.length + 1), value: "MS authentication failed. Please reload the page."}]})))
     }
 
     render() {
         return (
             <>
-
                 {this.state.successbag.length > 0 && (
                     <div className={"rounded border-2 border-teal border-solid w-fit mx-auto ".concat((this.props.className) ? this.props.className : this.props.className)}>
                         <h3 className={"bg-teal text-white p-1 font-bold"}>Success!</h3>
                         <div className={"pl-4"}>
                             <ul>
-                                {this.state.successbag.map((success) => (<li className={"list-disc m-2"}>{success.value}</li>))}
+                                {this.state.successbag.map((success) => (<li className={"list-disc m-2"} key={success.key}>{success.value}</li>))}
                             </ul>
                         </div>
                     </div>
@@ -60,7 +68,7 @@ class UpdateProfileForm extends Component {
                             <h3 className={"bg-magenta text-white p-1 font-bold"}>Something went wrong</h3>
                             <div className={"pl-4"}>
                                 <ul>
-                                    {this.state.successbag.map((err) => (<li className={"list-disc"}>{err.value}</li>))}
+                                    {this.state.successbag.map((err) => (<li className={"list-disc"} key={err.key}>{err.value}</li>))}
                                 </ul>
                             </div>
                         </div>
