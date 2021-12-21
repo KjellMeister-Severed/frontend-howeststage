@@ -58,8 +58,14 @@ export default class StudentProfile extends Component {
                 <main className="pt-24 gap-2 mt-18 mx-5 font-vag">
                     <HeroBanner name={this.state.name}>
                         <p><span className={"underline"}>Email:</span> {this.state.email}</p>
-                        <DisplayEntry title="CV" entry={this.state.cv} missingText="Not yet uploaded" />
-                        <DisplayEntry title="LinkedIn" entry={this.state.linkedin} missingText="Not yet set"/>
+                        <DisplayEntry
+                            title="CV"
+                            entry={`${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}${this.state.cv}`}
+                            missingText="Not yet uploaded" />
+                        <DisplayEntry
+                            title="LinkedIn"
+                            entry={this.state.linkedin}
+                            missingText="Not yet set" />
                     </HeroBanner>
                     <UpdateProfileForm className={"mt-5"}/>
                 </main>
@@ -74,7 +80,7 @@ function DisplayEntry(props) {
             (props.entry)
                 ? <MediumButton
                     to={props.entry}
-                    className={"hover:text-black hover:border-black border border-solid ml-3"}
+                    className={"hover:text-black hover:border-black border border-solid ml-3 p-2"}
                     bg={"bg-teal"}
                     bgHover={"bg-white"}
                     textColor={"text-white"}>Available!</MediumButton>
