@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { fetchFromBackend, fetchFileFromBackend } from "../../components/Comms"
+import { fetchFromBackend, fetchFileFromBackend } from "../Comms"
 import moment from 'moment';
 import MediumButton from '../MediumButton';
 
@@ -68,7 +68,7 @@ class AppointmentDetail extends Component {
 function formatTime(timestamp) {
     const appointmentTime = moment(timestamp);
     if(moment().day() === appointmentTime.day()) {
-        return appointmentTime.format("HH:mm");;
+        return appointmentTime.format("HH:mm");
     }
     return appointmentTime.format("YYYY-MM-DD HH:mm");
 }
