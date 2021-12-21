@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { fetchFromBackend, fetchFileFromBackend } from "../../components/Comms"
+import { fetchFromBackend, fetchFileFromBackend } from "../Comms"
 import moment from 'moment';
 import MediumButton from '../MediumButton';
 
