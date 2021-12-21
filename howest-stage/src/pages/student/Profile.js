@@ -47,13 +47,13 @@ export default class StudentProfile extends Component {
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" logo={true}>
                     <MediumButton
                         to={"/dashboard/student"}
-                        className={"justify-self-start hover:text-black"}
+                        className={"justify-self-start hover:text-black p-2"}
                         bg={"bg-magenta"}
                         bgHover={"bg-white"}
                         textColor={"text-white"}>
                         Back
                     </MediumButton>
-                    <MediumButton className={"border-2 border-white rounded bg-magenta mr-5"} onClick={() => this.context.instance.logoutRedirect()} textColor={"text-white"}>Logout</MediumButton>
+                    <MediumButton className={"border-2 border-white rounded bg-magenta mr-5 p-2"} onClick={() => this.context.instance.logoutRedirect()} textColor={"text-white"}>Logout</MediumButton>
                 </UniversalHeader>
                 <main className="pt-24 gap-2 mt-18 mx-5 font-vag">
                     <HeroBanner name={this.state.name}>
@@ -61,7 +61,7 @@ export default class StudentProfile extends Component {
                         <DisplayEntry title="CV" entry={this.state.cv} missingText="Not yet uploaded" />
                         <DisplayEntry title="LinkedIn" entry={this.state.linkedin} missingText="Not yet set"/>
                     </HeroBanner>
-                    <UpdateProfileForm/>
+                    <UpdateProfileForm className={"mt-5"}/>
                 </main>
             </>
         )
