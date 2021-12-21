@@ -3,7 +3,7 @@ import { fetchFromBackend } from "../../components/Comms"
 import CompanyAppointment from "../../components/Company/Appointment"
 import MediumButton from "../../components/MediumButton"
 import UniversalHeader from "../../components/UniversalHeader"
-import { getCookie } from "../../services/cookies";
+import { getCookie, setCookie } from "../../services/cookies";
 
 class CompanyDashboard extends Component {
 
@@ -34,7 +34,8 @@ class CompanyDashboard extends Component {
                     <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
                     <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
                     <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 4</MediumButton>
+                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}
+                    onClick={this.logout}>Logout</MediumButton>
                 </UniversalHeader>
                 <main className={"mx-2 mt-2"}>
                     {
@@ -53,6 +54,11 @@ class CompanyDashboard extends Component {
                 </main>
             </>
         )
+    }
+
+    logout() {
+        setCookie("companyToken", "", 0);
+        window.location.href = "/";
     }
 }
 
