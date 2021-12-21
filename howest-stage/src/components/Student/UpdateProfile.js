@@ -16,44 +16,57 @@ class UpdateProfileForm extends Component {
         this.handleURL = this.handleURL.bind()
     }
 
-    handleFile = (event) => { 
+    handleFile = (event) => {
         event.preventDefault()
-        this.setState((state) => ({ cv: event.target.files[0]}))
+        this.setState((state) => ({ cv: event.target.files[0] }))
     }
 
-    handleURL = (event) => { 
+    handleURL = (event) => {
         event.preventDefault()
-        this.setState((state) => ({ linkedin: event.target.value}))
+        this.setState((state) => ({ linkedin: event.target.value }))
     }
 
-    handleSubmit = (event) => { 
+    handleSubmit = (event) => {
         event.preventDefault()
         if (this.state.cv !== '' && this.state.cv !== undefined) {
-            uploadFile("/api/user/cv", { key: 'cv', data: this.state.cv})
-                .then((response) => {
-                    this.setState((state) => ({ successbag: [...this.state.successbag, 'CV uploaded successfully'] }))
-                })
-                .catch((response) => console.log(response))
+            uploadFile("/api/user/cv", { key: 'cv', data: this.state.cv })
+                .then((response) => { this.setState((state) => ({ successbag: [...this.state.successbag, 'CV uploaded successfully'] })) })
+                .catch((response) => { this.setState((state) => ({ errorbag: [...this.state.successbag, response.statusText] })) })
         }
         if (this.state.linkedin !== '' && this.state.linkedin !== undefined) {
             console.log(this.state.linkedin)
         }
+        this.forceUpdate()
     }
 
-    render() { 
+    render() {
         return (
-            <form onSubmit={this.handleSubmit} className={"flex flex-col gap-2 items-center ".concat((this.props.className) ? this.props.className : this.props.className)}>
-                <label for="cv"> CV:
-                    <input type={"file"} accept={".pdf"} id={"cv"} className={"ml-2 w-max"} onChange={this.handleFile} />
-                    <span className={"italic"}>*PDF only</span>
-                </label>
-                <label for="linkedin" className={"inline w-max"}>LinkedIn:
-                    <input onChange={this.handleURL} type={"text"} id={"linkedin"} name={"linkedin"} placeholder={"https://www.linkedin.com/in/..."} className={"ml-2 border-solid border-2 p-1 rounded border-black w-96 min-w-fit"} />
-                </label>
-                <input type={"submit"} className={"w-fit rounded border text-white bg-magenta hover:bg-white hover:border-black hover:text-black p-2"}/>
-            </form>
+            <>
+                <div>
+                    {this.state.successbag.length > 0 && (
+                        <ul>
+                            {this.state.successbag.map((msg) => (<li>{ msg }</li>))}
+                        </ul>
+                    )}
+                    {this.state.errorbag.length > 0 && (
+                        <ul>
+                            {this.state.successbag.map((msg) => (<li>{ msg }</li>))}
+                        </ul>
+                    )}
+                </div>
+                <form onSubmit={this.handleSubmit} className={"flex flex-col gap-2 items-center ".concat((this.props.className) ? this.props.className : this.props.className)}>
+                    <label for="cv"> CV:
+                        <input type={"file"} accept={".pdf"} id={"cv"} className={"ml-2 w-max"} onChange={this.handleFile} />
+                        <span className={"italic"}>*PDF only</span>
+                    </label>
+                    <label for="linkedin" className={"inline w-max"}>LinkedIn:
+                        <input onChange={this.handleURL} type={"text"} id={"linkedin"} name={"linkedin"} placeholder={"https://www.linkedin.com/in/..."} className={"ml-2 border-solid border-2 p-1 rounded border-black w-96 min-w-fit"} />
+                    </label>
+                    <input type={"submit"} className={"w-fit rounded border text-white bg-magenta hover:bg-white hover:border-black hover:text-black p-2"} />
+                </form>
+            </>
         );
     }
 }
- 
+
 export default UpdateProfileForm;
