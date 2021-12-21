@@ -3,6 +3,7 @@ import { fetchFromBackend } from "../../components/Comms"
 import CompanyAppointment from "../../components/Company/Appointment"
 import MediumButton from "../../components/MediumButton"
 import UniversalHeader from "../../components/UniversalHeader"
+import { getCookie } from "../../services/cookies";
 
 class CompanyDashboard extends Component {
 
@@ -14,7 +15,7 @@ class CompanyDashboard extends Component {
     };
 
     componentDidMount() {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw";
+        const token = getCookie("companyToken");
         fetchFromBackend("/api/companies/appointments", "GET", token).then(data => 
             {
                 this.setState(() => ({

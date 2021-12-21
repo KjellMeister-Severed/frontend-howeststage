@@ -1,18 +1,20 @@
 import { Component } from 'react';
 import { fetchFromBackend, fetchFileFromBackend } from "../Comms"
+import { getCookie } from "../../services/cookies";
 import moment from 'moment';
 import MediumButton from '../MediumButton';
 
 class CompanyAppointment extends Component {
     constructor(props) {
         super(props);
+        this.companyToken = getCookie("companyToken");
         this.state = { open: false, formattedTime: formatTime(props.time), hasCV: false };
         this.changeDetailsVisibility = this.changeDetailsVisibility.bind(this)
     }
 
     componentDidMount() {
         fetchFromBackend(`/api/user/${this.props.personId}`, 
-        "GET", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw")
+        "GET", this.companyToken)
         .then(user => {
             const hasCV = user.cv_path != null;
             this.setState(() => ({
@@ -75,7 +77,7 @@ function formatTime(timestamp) {
 
 function downloadCV(userId, userName) {
     fetchFileFromBackend(`/api/user/${userId}/cv`, 
-    "GET", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw")
+    "GET", this.companyToken)
     .then(blob => {
         const cvURL = window.URL.createObjectURL(blob);
         const tempLink = document.createElement('a');
@@ -87,7 +89,7 @@ function downloadCV(userId, userName) {
 
 function cancelAppointment(userId, appointmentId) {
     fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOjE0MCwiaWF0IjoxNjQwMDAyODY5LCJleHAiOjE2NDAwODkyNjl9.RyvBPKX4fwMrd7i0iFfHuILWTBGgsGHP8dZQIGCbAUw")
+    this.companyToken)
     .then(res => {
         if(res.result) {
             window.location.reload();
