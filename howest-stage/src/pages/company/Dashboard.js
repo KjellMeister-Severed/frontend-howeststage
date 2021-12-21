@@ -22,7 +22,9 @@ class CompanyDashboard extends Component {
                     appointments: data
                 }));
             }
-        )
+        ).catch(() => {
+            window.location.href = "/";
+        })
     }
 
     render() {
