@@ -25,7 +25,7 @@ export async function uploadFile(endpoint, file, bearer = "", method = "POST") {
         }
     }
 
-    return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint, request))
+    return (await fetch(`${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}${endpoint}`, request))
 }
 
 export async function bodyRequest(endpoint, body, bearer = "", method = "POST") {

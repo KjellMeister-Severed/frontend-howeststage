@@ -33,7 +33,7 @@ export default class StudentProfile extends Component {
             fetchFromBackend("/api/user/", "GET", response.accessToken)
                 .then(data => {
                     this.setState((state) => ({ linkedin: data.linkedin_url }))
-                    fetchFileFromBackend(data.cv_path, "GET", response.accessToken)
+                    fetchFileFromBackend(`/api/user/cv`, "GET", response.accessToken)
                         .then((cvUrl) => this.setState({cv: URL.createObjectURL(cvUrl)}))
                 })
         }).catch(data => console.log(data))
