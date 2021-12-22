@@ -2,22 +2,14 @@ import { Component } from "react";
 import MediumButton from "../../components/MediumButton";
 import UniversalHeader from "../../components/UniversalHeader";
 import { MsalContext } from "@azure/msal-react";
-import { fetchFromBackend } from "../../components/Comms";
 import CsvImport from "../../components/Admin/CsvImport";
 import AddCompanyForm from "../../components/Admin/AddCompanyForm";
 
 class AddCompany extends Component {
     static contextType = MsalContext;
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.context.instance.setActiveAccount(this.context.accounts[0])
-        let tokenRequest = {
-            scopes: ["user.read"]
-        };
     }
 
     render() {
