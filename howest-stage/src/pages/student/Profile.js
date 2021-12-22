@@ -2,7 +2,7 @@ import { MsalContext } from "@azure/msal-react";
 import { Component } from "react";
 import UniversalHeader from "../../components/UniversalHeader";
 import MediumButton from "../../components/MediumButton";
-import { fetchFromBackend } from "../../components/Comms";
+import { fetchFileFromBackend, fetchFromBackend } from "../../components/Comms";
 import HeroBanner from "../../components/Student/HeroBanner";
 import UpdateProfileForm from "../../components/Student/UpdateProfile";
 
@@ -31,12 +31,10 @@ export default class StudentProfile extends Component {
                 email: response.account.username
             }))
             fetchFromBackend("/api/user/", "GET", response.accessToken)
-                .then(data => { 
-                    console.log(data)
-                    this.setState((state) => ({
-                        cv: data.cv_path,
-                        linkedin: data.linkedin_url
-                    }))
+                .then(data => {
+                    this.setState((state) => ({ linkedin: data.linkedin_url }))
+                    fetchFileFromBackend(data.cv_path, "GET", response.accessToken)
+                        .then((cvUrl) => this.setState({cv: URL.createObjectURL(cvUrl)}))
                 })
         }).catch(data => console.log(data))
     }
@@ -60,7 +58,7 @@ export default class StudentProfile extends Component {
                         <p><span className={"underline"}>Email:</span> {this.state.email}</p>
                         <DisplayEntry
                             title="CV"
-                            entry={`${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}${this.state.cv}`}
+                            entry={`${this.state.cv}`}
                             missingText="Not yet uploaded" />
                         <DisplayEntry
                             title="LinkedIn"
