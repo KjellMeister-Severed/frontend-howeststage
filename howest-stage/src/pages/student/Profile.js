@@ -36,7 +36,11 @@ export default class StudentProfile extends Component {
                     fetchFileFromBackend(`/api/user/cv`, "GET", response.accessToken)
                         .then((cvUrl) => this.setState({cv: URL.createObjectURL(cvUrl)}))
                 })
-        }).catch(data => console.log(data))
+        }).catch(data => this.setState((state) => ({
+            errorbag: [...this.state.errorbag, {
+                key: this.state.errorbag + 1,
+                value: 'Something went wrong with fetching your profile. Please go back to the homepage and try again.'
+        }]})))
     }
 
     render() {
@@ -54,18 +58,33 @@ export default class StudentProfile extends Component {
                     <MediumButton className={"border-2 border-white rounded bg-magenta mr-5 p-2"} onClick={() => this.context.instance.logoutRedirect()} textColor={"text-white"}>Logout</MediumButton>
                 </UniversalHeader>
                 <main className="pt-24 gap-2 mt-18 mx-5 font-vag">
-                    <HeroBanner name={this.state.name}>
-                        <p><span className={"underline"}>Email:</span> {this.state.email}</p>
-                        <DisplayEntry
-                            title="CV"
-                            entry={`${this.state.cv}`}
-                            missingText="Not yet uploaded" />
-                        <DisplayEntry
-                            title="LinkedIn"
-                            entry={this.state.linkedin}
-                            missingText="Not yet set" />
-                    </HeroBanner>
-                    <UpdateProfileForm className={"mt-5"}/>
+                    {this.state.errorbag.length > 0 &&
+                        <div className={"rounded border-2 border-magenta border-solid w-fit mx-auto ".concat((this.props.className) ? this.props.className : this.props.className)}>
+                            <h3 className={"bg-magenta text-white p-1 font-bold"}>Something went wrong</h3>
+                            <div className={"pl-4"}>
+                                <ul>
+                                    {this.state.errorbag.map((err) => (<li className={"list-disc m-2"} key={err.key}>{err.value}</li>))}
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    {this.state.errorbag.length === 0 && (
+                        <>
+                            <HeroBanner name={this.state.name}>
+                                <p><span className={"underline"}>Email:</span> {this.state.email}</p>
+                                <DisplayEntry
+                                    title="CV"
+                                    entry={`${this.state.cv}`}
+                                    missingText="Not yet uploaded" />
+                                <DisplayEntry
+                                    title="LinkedIn"
+                                    entry={this.state.linkedin}
+                                    missingText="Not yet set" />
+                            </HeroBanner>
+                            <UpdateProfileForm className={"mt-5"} />
+                        </>
+                    )
+                    }
                 </main>
             </>
         )
