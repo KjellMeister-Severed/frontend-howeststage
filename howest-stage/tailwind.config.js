@@ -15,12 +15,13 @@ module.exports = {
       magenta: "#e6007e",
       teal: "#009a93",
       yellow: {
-        DEFAULT: "#ffff00"
+        DEFAULT: "#fffde5"
       },
       white: colors.white,
       gray: "#7f7f7f",
       indigo: colors.indigo,
       red: "#ff0000",
+      green: "#00b050"
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

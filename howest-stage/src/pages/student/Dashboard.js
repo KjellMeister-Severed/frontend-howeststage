@@ -28,7 +28,7 @@ class StudentDashboard extends Component {
             fetchFromBackend("/api/user/"+this.context.accounts[0].username+"/appointments", "GET", response.accessToken).then(data => {this.setState(() => ({
                 appointments: data
             }))
-            console.log(data)})
+            })
         })
         this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
             fetchFromBackend("/api/companies", "GET", response.accessToken ).then(data => this.setState(() => ({
@@ -55,7 +55,7 @@ class StudentDashboard extends Component {
                         bg={"bg-magenta"}
                         bgHover={"bg-white"}
                         textColor={"text-white"}
-                        to={"/dashboard/student/profile"}>
+                        to={"/dashboard/admin/addcompany"}>
                         Add company
                     </MediumButton> 
                     <MediumButton
