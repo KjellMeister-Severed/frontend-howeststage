@@ -68,7 +68,7 @@ class UpdateProfileForm extends Component {
                             <h3 className={"bg-magenta text-white p-1 font-bold"}>Something went wrong</h3>
                             <div className={"pl-4"}>
                                 <ul>
-                                    {this.state.successbag.map((err) => (<li className={"list-disc"} key={err.key}>{err.value}</li>))}
+                                    {this.state.errorbag.map((err) => (<li className={"list-disc m-2"} key={err.key}>{err.value}</li>))}
                                 </ul>
                             </div>
                         </div>
