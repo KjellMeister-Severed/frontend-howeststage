@@ -5,17 +5,27 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      primary: "#44c8f5",
+      primary: {
+        DEFAULT: "#44c8f5",
+        light: "#d0f1fc"
+      },
       blue: {
         DEFAULT: "#44c8f5"
       },
       black: {
         DEFAULT: "#000000"
       },
-      magenta: "#e6007e",
-      teal: "#009a93",
+      magenta: {
+        DEFAULT: "#e6007e",
+        light: "#fabfe2"
+      },
+      teal: {
+        DEFAULT: "#009a93",
+        light: "#bfe6e4"
+      },
       yellow: {
-        DEFAULT: "#ffff00"
+        DEFAULT: "#ffff00",
+        light: "#fffabf"
       },
       white: colors.white,
       gray: colors.trueGray,
