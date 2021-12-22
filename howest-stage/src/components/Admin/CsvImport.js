@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { MsalContext } from "@azure/msal-react";
+import { fetchFromBackend } from "../Comms";
 
 class CsvImport extends Component {
     static contextType = MsalContext;
@@ -29,8 +30,6 @@ class CsvImport extends Component {
             scopes: ["user.read"]
         };
         
-        console.log(this.state);
-
         if(this.state.csv === "" || this.state.csv == null) {
             this.setState({
                 output: <p className="text-red text-center">You have to upload a CSV file.</p>
@@ -45,8 +44,25 @@ class CsvImport extends Component {
             });
         }
 
+
+        this.setState({
+            output: <p className="text-black text-center">Upload in progress, please wait.</p>
+        });
+
         // Upload the CSV file to our back-end
-        this.context.instance.acquireTokenSilent(tokenRequest).then(response => { 
+        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+            const formData = new FormData();
+            formData.append("companiesCsv", file);
+
+            fetchFromBackend("/api/companies/csv", "POST", response.accessToken, formData).then(() => {
+                this.setState({
+                    output: <p className="text-green text-center">CSV upload succesful</p>
+                });
+            }).catch(() => {
+                this.setState({
+                    output: <p className="text-red text-center">CSV upload failed</p>
+                });
+            });
         });
     }
 

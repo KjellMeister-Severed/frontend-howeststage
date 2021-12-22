@@ -33,10 +33,7 @@ class CompanyDashboard extends Component {
         return (
             <>
                 <UniversalHeader className="h-24 flex-initial" subheader={ "My Appointments"}>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}
+                    <MediumButton className={"border-2 border-white rounded"} textColor={"text-white"}
                     onClick={this.logout}>Logout</MediumButton>
                 </UniversalHeader>
                 <main className={"mx-2 mt-2"}>
