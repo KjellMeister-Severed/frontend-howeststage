@@ -39,8 +39,10 @@ class CsvImport extends Component {
         }
 
         const file = this.state.csv;
-        if(file.type !== "text/csv") {
-            output: <p className="text-red text-center">The file you are trying to upload needs to have the CSV extension.</p>
+        if(file.type.includes("csv")) {
+            this.setState({
+                output: <p className="text-red text-center">The file you are trying to upload needs to be a CSV file.</p>
+            });
         }
 
         // Upload the CSV file to our back-end

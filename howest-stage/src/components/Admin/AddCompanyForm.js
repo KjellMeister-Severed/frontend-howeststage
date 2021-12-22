@@ -6,7 +6,7 @@ class AddCompanyForm extends Component {
             <>
                 <h1 className="font-vagbold text-xl mt-2">Add company</h1>
                 <form className="flex flex-col w-3/4">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Company name</label>
                     <input type="text" name="name" id="name" className="border-solid 
                     border-2 mb-3"/>
 
