@@ -23,7 +23,7 @@ class CompanyDashboard extends Component {
                 }));
             }
         ).catch(() => {
-            window.location.href = "/";
+            this.logout();
         })
     }
 

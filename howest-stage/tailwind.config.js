@@ -18,9 +18,9 @@ module.exports = {
         DEFAULT: "#ffff00"
       },
       white: colors.white,
-      gray: colors.trueGray,
+      gray: "#7f7f7f",
       indigo: colors.indigo,
-      red: colors.rose,
+      red: "#ff0000",
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

@@ -56,6 +56,14 @@ class StudentDashboard extends Component {
                         bgHover={"bg-white"}
                         textColor={"text-white"}
                         to={"/dashboard/student/profile"}>
+                        Add company
+                    </MediumButton> 
+                    <MediumButton
+                        className={"justify-self-start hover:text-black"}
+                        bg={"bg-magenta"}
+                        bgHover={"bg-white"}
+                        textColor={"text-white"}
+                        to={"/dashboard/student/profile"}>
                         Profile
                     </MediumButton>
                     <MediumButton
@@ -87,20 +95,38 @@ class StudentDashboard extends Component {
                                 name={company.name}
                                 location={company.city}>
                                 <p className={"font-vag truncate ..."}>{company.description}</p>
-                                <div className={"flex mb-4"}>
-                                    <MediumButton
-                                        to={`/company/${company.id}/info`}
-                                        bg={"bg-magenta"}
-                                        bgHover={"bg-primary"}
-                                        className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
-                                        More information
-                                    </MediumButton>
-                                    <MediumButton
-                                        to={company.bookingsUrl}
-                                        bgHover={"bg-none"}
-                                        className={"p-2 text-teal font-vag w-fit mb-2 mr-2 mt-2 ml-0 pl-0 pb-0 font-bold h-fit hover:underline"}>
-                                        Book a meeting...
-                                    </MediumButton>
+                                <div className={"flex mt-3 mb-4 justify-between items-center"}>
+                                    <div>
+                                        <MediumButton
+                                            to={`/company/${company.id}/info`}
+                                            bg={"bg-magenta"}
+                                            bgHover={"bg-primary"}
+                                            className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
+                                            More information
+                                        </MediumButton>
+                                        <MediumButton
+                                            to={company.bookingsUrl}
+                                            bgHover={"bg-none"}
+                                            className={"p-2 text-teal font-vag w-fit mb-2 mr-2 mt-2 ml-0 pl-0 pb-0 font-bold h-fit hover:underline"}>
+                                            Book a meeting...
+                                        </MediumButton>
+                                    </div>
+                                    <div>
+                                        <MediumButton
+                                            to={`/company/${company.id}/info`}
+                                            bg={"bg-gray"}
+                                            bgHover={"bg-primary"}
+                                            className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
+                                            Edit
+                                        </MediumButton>
+                                        <MediumButton
+                                            to={`/company/${company.id}/info`}
+                                            bg={"bg-red"}
+                                            bgHover={"bg-primary"}
+                                            className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
+                                            Delete
+                                        </MediumButton>
+                                    </div>
                                 </div>
                             </CompanyShort>
                         )
