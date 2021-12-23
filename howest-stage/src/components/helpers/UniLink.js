@@ -15,7 +15,7 @@ class UniLink extends Component {
         }
         if (this.props.to.includes("http://") || this.props.to.includes("https://")) {
             return (
-                <a href={this.props.to} className={this.props.className} onClick={this.props.onClick}>
+                <a href={this.props.to} className={this.props.className} onClick={this.props.onClick} target="_blank">
                     {this.props.children}
                 </a>
             )
