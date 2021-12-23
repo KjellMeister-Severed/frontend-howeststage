@@ -46,7 +46,7 @@ class StudentDashboard extends Component {
         };
         console.log(appointmentId)
         this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
-            cancelAppointment(response.accessToken, this.context.instance.getActiveAccount().username, appointmentId, () => {
+            cancelAppointment(response.accessToken,this.context.instance.getActiveAccount().username, appointmentId, () => {
                 this.setState({
                     appointments: this.state.appointments.filter(appointment => appointment.id !== appointmentId)
                 })

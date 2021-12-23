@@ -54,8 +54,11 @@ export async function fetchFileFromBackend(endpoint, method = "GET", bearer = ""
 export function cancelAppointment(bearer = "" , userId, appointmentId, cb){
     let request = {
         method: "DELETE",
+        headers: {
+            'Authorization': `Bearer ${bearer}`
+        }
     }
-    fetch(`${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/api/user/${userId}/appointments/${appointmentId}`  , request).    then(
+    fetch(`${process.env.REACT_APP_BACKEND_URL}:${process.env.REACT_APP_BACKEND_PORT}/api/user/appointments/${appointmentId}`  , request).then(
         function (){
             cb(appointmentId)
         }
