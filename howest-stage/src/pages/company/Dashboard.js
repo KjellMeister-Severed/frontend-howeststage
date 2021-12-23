@@ -9,6 +9,7 @@ class CompanyDashboard extends Component {
 
     constructor(props) {
         super(props);
+        this.companyToken = getCookie("companyToken");
         this.state = {
             appointments: [],
         };
@@ -25,6 +26,18 @@ class CompanyDashboard extends Component {
         ).catch(() => {
             this.logout();
         })
+    }
+
+    cancelAppointment(userId, appointmentId) {
+        fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
+        this.companyToken)
+        .then(res => {
+            if(res.result) {
+                this.setState(state => ({
+                    appointments: state.appointments.filter(appointment => appointment.bookingsId !== appointmentId)
+                }));
+            }
+        });
     }
 
     render() {
@@ -47,7 +60,8 @@ class CompanyDashboard extends Component {
                             personId={appointment.customer.id}
                             time={appointment.startTime}
                             location={"Online"}
-                            meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')} />
+                            meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')} 
+                            cancelFunction={() => this.cancelAppointment(appointment.customer.id, appointment.bookingsId)}/>
                         )
                     }
                 </main>
