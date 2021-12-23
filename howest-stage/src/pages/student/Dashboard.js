@@ -18,21 +18,23 @@ class StudentDashboard extends Component {
             companies: [],
         };
 
+        this.tokenRequest = {
+            scopes: ["user.read"]
+        };
+
         this.deleteAppointment = this.deleteAppointment.bind(this)
     };
 
     componentDidMount() {
         this.context.instance.setActiveAccount(this.context.accounts[0])
-        let tokenRequest = {
-            scopes: ["user.read"]
-        };
-        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+
+        this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
             fetchFromBackend("/api/user/"+this.context.accounts[0].username+"/appointments", "GET", response.accessToken).then(data => {this.setState(() => ({
                 appointments: data
             }))
             })
         })
-        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+        this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
             fetchFromBackend("/api/companies", "GET", response.accessToken ).then(data => this.setState(() => ({
                 allcompanies: data,
                 companies: data
@@ -41,18 +43,13 @@ class StudentDashboard extends Component {
     }
 
     deleteAppointment(appointmentId) {
-        let tokenRequest = {
-            scopes: ["user.read"]
-        };
-        console.log(appointmentId)
-        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+        this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
             cancelAppointment(response.accessToken,this.context.instance.getActiveAccount().username, appointmentId, () => {
                 this.setState({
                     appointments: this.state.appointments.filter(appointment => appointment.id !== appointmentId)
                 })
             })
         })
-
     }
 
     handleSearchFilter = (event) => {
@@ -60,6 +57,23 @@ class StudentDashboard extends Component {
         this.setState((state) => ({
             companies: filteredList,
         }))
+    }
+
+    deleteCompany(id) {
+        if(window.confirm("Are you sure you want to delete this company?")) {
+            this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
+                fetchFromBackend(`/api/companies/${id}`, "DELETE", response.accessToken).then(() => {
+                    alert("Company deleted.");
+                    
+                    this.setState((state) => ({
+                        allcompanies: state.allcompanies.filter(company => company.id !== id),
+                        companies: state.companies.filter(company => company.id !== id)
+                    }));
+                }).catch(() => {
+                    alert("Something went wrong.");
+                });
+            });
+        }
     }
 
     render() {
@@ -137,7 +151,7 @@ class StudentDashboard extends Component {
                                             Edit
                                         </MediumButton>
                                         <MediumButton
-                                            to={`/company/${company.id}/info`}
+                                            onClick={() => this.deleteCompany(company.id)}
                                             bg={"bg-red"}
                                             bgHover={"bg-primary"}
                                             className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
