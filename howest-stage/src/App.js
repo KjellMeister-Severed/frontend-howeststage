@@ -9,6 +9,7 @@ import Legal from "./pages/legal/Legal";
 import StudentCompanyInfo from './pages/student/CompanyInfo';
 import StudentProfile from './pages/student/Profile';
 import React from 'react';
+import AddCompany from "./pages/admin/AddCompany"
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         <Route path={"/legal"} element={<Legal />} />
                         <Route path={"/dashboard/student"} element={<StudentDashboard />} />
                         <Route path={"/dashboard/company"} element={<CompanyDashboard />} />
+                        <Route path={"/dashboard/admin/addcompany"} element={<AddCompany />} component={AddCompany} />
                         <Route path={"/company/:id/info"} element={<StudentCompanyInfo />} component={StudentCompanyInfo} />
                         <Route path={"/dashboard/student/profile"} element={<StudentProfile />} component={StudentProfile} />
                     </Routes>

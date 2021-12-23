@@ -53,7 +53,7 @@ class CompanyAppointment extends Component {
                             <MediumButton to={this.props.cv} alt="LinkedIn" bg={"bg-white"} textColor={ "text-black hover:text-white"} onClick={() => window.open(linkedIn)}>View LinkedIn</MediumButton>
                         }
                         <MediumButton to={this.props.meeting} alt="Link to meeting link" bg={ "bg-white"} textColor={ "text-black hover:text-white"}>Go to meeting</MediumButton>
-                        <MediumButton bg={"bg-white"} textColor={"text-black hover:text-white"} onClick={() => this.cancelAppointment(this.props.personId, this.props.bookingsId)}>Cancel Appointment</MediumButton>
+                        <MediumButton bg={"bg-white"} textColor={"text-black hover:text-white"} onClick={this.props.cancelFunction}>Cancel Appointment</MediumButton>
                     </div>
                 </div>
             </details>
@@ -72,16 +72,6 @@ class CompanyAppointment extends Component {
         });
     }
 
-    cancelAppointment(userId, appointmentId) {
-        fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
-        this.companyToken)
-        .then(res => {
-            if(res.result) {
-                window.location.reload();
-            }
-        });
-    }
-    
 }
 
 class AppointmentDetail extends Component {

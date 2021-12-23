@@ -9,6 +9,7 @@ class CompanyDashboard extends Component {
 
     constructor(props) {
         super(props);
+        this.companyToken = getCookie("companyToken");
         this.state = {
             appointments: [],
         };
@@ -23,8 +24,22 @@ class CompanyDashboard extends Component {
                 }));
             }
         ).catch(() => {
-            window.location.href = "/";
+            this.logout();
         })
+    }
+
+    cancelAppointment(userId, appointmentId) {
+        if(window.confirm("Are you sure you want to cancel this appointment?")) {
+            fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
+            this.companyToken)
+            .then(res => {
+                if(res.result) {
+                    this.setState(state => ({
+                        appointments: state.appointments.filter(appointment => appointment.bookingsId !== appointmentId)
+                    }));
+                }
+            });
+        }
     }
 
     render() {
@@ -33,10 +48,7 @@ class CompanyDashboard extends Component {
         return (
             <>
                 <UniversalHeader className="h-24 flex-initial" subheader={ "My Appointments"}>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 1</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 2</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}>Link 3</MediumButton>
-                    <MediumButton to={"#"} className={"border-2 border-white rounded"} textColor={"text-white"}
+                    <MediumButton className={"border-2 border-white rounded"} textColor={"text-white"}
                     onClick={this.logout}>Logout</MediumButton>
                 </UniversalHeader>
                 <main className={"mx-2 mt-2"}>
@@ -50,7 +62,8 @@ class CompanyDashboard extends Component {
                             personId={appointment.customer.id}
                             time={appointment.startTime}
                             location={"Online"}
-                            meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')} />
+                            meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')} 
+                            cancelFunction={() => this.cancelAppointment(appointment.customer.id, appointment.bookingsId)}/>
                         )
                     }
                 </main>

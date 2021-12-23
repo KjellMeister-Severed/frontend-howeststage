@@ -28,9 +28,10 @@ module.exports = {
         light: "#fffabf"
       },
       white: colors.white,
-      gray: colors.trueGray,
+      gray: "#7f7f7f",
       indigo: colors.indigo,
-      red: colors.rose,
+      red: "#ff0000",
+      green: "#00b050"
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
