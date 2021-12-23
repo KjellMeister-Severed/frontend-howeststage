@@ -14,6 +14,7 @@ class StudentDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isAdmin: false,
             allcompanies: [],
             companies: [],
         };
@@ -27,6 +28,13 @@ class StudentDashboard extends Component {
 
     componentDidMount() {
         this.context.instance.setActiveAccount(this.context.accounts[0])
+
+        this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
+                fetchFromBackend("/api/user/", "GET", response.accessToken).then(data => {this.setState(() => ({
+                    isAdmin: data.roles.includes("Administrator")
+                }))
+            })
+        })
 
         this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
             fetchFromBackend("/api/user/"+this.context.accounts[0].username+"/appointments", "GET", response.accessToken).then(data => {this.setState(() => ({
@@ -77,18 +85,18 @@ class StudentDashboard extends Component {
     }
 
     render() {
-        const { companies, appointments } = this.state;
+        const { companies, appointments, isAdmin } = this.state;
         return (
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
-                    <MediumButton
+                    {isAdmin && <MediumButton
                         className={"p-2 justify-self-start hover:text-black"}
                         bg={"bg-magenta"}
                         bgHover={"bg-white"}
                         textColor={"text-white"}
                         to={"/dashboard/admin/addcompany"}>
                         Add company
-                    </MediumButton> 
+                    </MediumButton>} 
                     <MediumButton
                         className={"justify-self-start hover:text-black"}
                         bg={"bg-magenta"}
@@ -143,13 +151,16 @@ class StudentDashboard extends Component {
                                         </MediumButton>
                                     </div>
                                     <div>
+                                        {isAdmin &&
                                         <MediumButton
-                                            to={`/company/${company.id}/info`}
-                                            bg={"bg-gray"}
-                                            bgHover={"bg-primary"}
-                                            className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
-                                            Edit
+                                        to={`/company/${company.id}/info`}
+                                        bg={"bg-gray"}
+                                        bgHover={"bg-primary"}
+                                        className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
+                                        Edit
                                         </MediumButton>
+                                        }
+                                        {isAdmin &&
                                         <MediumButton
                                             onClick={() => this.deleteCompany(company.id)}
                                             bg={"bg-red"}
@@ -157,6 +168,7 @@ class StudentDashboard extends Component {
                                             className={"p-2 font-bold font-vag w-fit text-white m-2 mb-0 ml-0"}>
                                             Delete
                                         </MediumButton>
+                                        }
                                     </div>
                                 </div>
                             </CompanyShort>
