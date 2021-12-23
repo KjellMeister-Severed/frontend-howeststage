@@ -1,4 +1,4 @@
-export async function fetchFromBackend(endpoint, method = "GET", bearer = "", body=null) {
+export async function fetchFromBackend(endpoint, method = "GET", bearer = "", body=null, contentType=null) {
     let request = {
         method: method,
         headers: {
@@ -8,6 +8,10 @@ export async function fetchFromBackend(endpoint, method = "GET", bearer = "", bo
 
     if(body) {
         request.body = body;
+    }
+
+    if(contentType) {
+        request.headers["Content-Type"] = contentType;
     }
 
     return (await fetch(process.env.REACT_APP_BACKEND_URL + ":" + process.env.REACT_APP_BACKEND_PORT + endpoint, request)).json();
