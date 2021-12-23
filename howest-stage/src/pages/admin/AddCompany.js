@@ -24,6 +24,12 @@ class AddCompany extends Component {
                     </MediumButton>
                 </UniversalHeader>
                 <main className="flex flex-col items-center pt-20 gap-2 mt-18 ml-3">
+                    <MediumButton
+                        to={"/dashboard/company"}
+                        className={"border-2 border-white rounded bg-magenta ml-3 mt-3 self-start"}
+                        textColor={"text-white"}>
+                        Back
+                    </MediumButton>
                     <div className="w-1/2 bg-yellow flex flex-col items-center my-5 py-3">
                         <CsvImport/>
                         <hr className="w-3/4 border-1 border-black my-2"/>

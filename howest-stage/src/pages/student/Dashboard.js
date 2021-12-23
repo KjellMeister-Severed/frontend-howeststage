@@ -5,7 +5,7 @@ import UniversalHeader from "../../components/UniversalHeader"
 import {Component} from "react";
 import StudentAppointments from "../../components/Student/Appointments";
 import StudentCompanyList from "../../components/Student/Companies";
-import {fetchFromBackend} from "../../components/Comms";
+import {fetchFromBackend, cancelAppointment} from "../../components/Comms";
 import { MsalContext } from "@azure/msal-react";
 
 class StudentDashboard extends Component {
@@ -17,6 +17,8 @@ class StudentDashboard extends Component {
             allcompanies: [],
             companies: [],
         };
+
+        this.deleteAppointment = this.deleteAppointment.bind(this)
     };
 
     componentDidMount() {
@@ -38,6 +40,21 @@ class StudentDashboard extends Component {
         })
     }
 
+    deleteAppointment(appointmentId) {
+        let tokenRequest = {
+            scopes: ["user.read"]
+        };
+        console.log(appointmentId)
+        this.context.instance.acquireTokenSilent(tokenRequest).then(response => {
+            cancelAppointment(response.accessToken,this.context.instance.getActiveAccount().username, appointmentId, () => {
+                this.setState({
+                    appointments: this.state.appointments.filter(appointment => appointment.id !== appointmentId)
+                })
+            })
+        })
+
+    }
+
     handleSearchFilter = (event) => {
         let filteredList = this.state.allcompanies.filter(company => company.name.toLowerCase().includes(event.target.value.toLowerCase()));
         this.setState((state) => ({
@@ -51,7 +68,7 @@ class StudentDashboard extends Component {
             <>
                 <UniversalHeader className="h-20 flex-initial fixed w-screen" subheader={"Welcome, " + this.context.accounts[0].name}>
                     <MediumButton
-                        className={"justify-self-start hover:text-black"}
+                        className={"p-2 justify-self-start hover:text-black"}
                         bg={"bg-magenta"}
                         bgHover={"bg-white"}
                         textColor={"text-white"}
@@ -67,7 +84,7 @@ class StudentDashboard extends Component {
                         Profile
                     </MediumButton>
                     <MediumButton
-                        className={"border-2 border-white rounded bg-magenta mr-5"}
+                        className={"p-2 bg-gray-400 rounded bg-magenta mr-5"}
                         onClick={() => this.context.instance.logoutRedirect()}
                         textColor={"text-white"}>
                         Logout
@@ -82,10 +99,10 @@ class StudentDashboard extends Component {
                                     key={appointment.id}
                                     company={appointment.company.name}
                                     date={new Date(appointment.startTime)}
+                                    cancelFunc={() => this.deleteAppointment(appointment.bookingsId)}
                                     meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')}
                                 />) : <p className={"top-2"}>loading appointments...</p>
                         }
-
                     </StudentAppointments>
                     <StudentCompanyList onChange={this.handleSearchFilter}>
                     {

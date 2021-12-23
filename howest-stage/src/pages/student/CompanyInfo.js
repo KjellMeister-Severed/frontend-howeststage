@@ -14,13 +14,13 @@ export default function StudentCompanyInfo() {
             <UniversalHeader className="h-20 flex-initial fixed w-screen" logo={true}>
                 <MediumButton
                     to={"/dashboard/student"}
-                    className={"justify-self-start hover:text-black"}
+                    className={"justify-self-start hover:text-black p-2"}
                     bg={"bg-magenta"}
                     bgHover={"bg-white"}
                     textColor={"text-white"}>
                     Back
                 </MediumButton>
-                <MediumButton className={"border-2 border-white rounded bg-magenta mr-5"} textColor={"text-white"}>Logout (todo)</MediumButton>
+                <MediumButton className={"rounded bg-magenta mr-5 p-2"} textColor={"text-white"}>Logout (todo)</MediumButton>
             </UniversalHeader>
             <main className={"pt-20" }>
                 <CompanyInfo id={id}/>

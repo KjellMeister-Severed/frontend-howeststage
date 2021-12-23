@@ -31,18 +31,14 @@ const Home = () => {
     return (
         <>
             <UnauthenticatedTemplate>
-                <UniversalHeader className="h-24 flex-initial w-screen fixed" logo={true} />
-                <main className={"flex flex-col lg:flex-row h-auto flex-auto"}>
+                <main className={"flex flex-col md:flex-row h-auto flex-auto"}>
                     <aside>
-                        <img src={index_picture} alt="People meeting" className={"object-cover lg:h-screen"} />
+                        <img src={index_picture} alt="People meeting" className={"object-cover h-1/3 md:h-screen"} />
                     </aside>
-                    <article className={"flex flex-col w-3/4 items-center mx-auto lg:justify-center"}>
-                        <figure className={"flex flex-col w-60 items-center"}>
-                            <img src={howest_full} alt="HoWest" />
-                            <figcaption>
-                                <span className={"font-vagbold text-xl tracking-wide text-magenta"}>Stage Booker </span>Login
-                            </figcaption>
-                        </figure>
+                    <article className={"flex flex-col w-full items-center md:mx-auto md:justify-center"}>
+                        <h3 className={"text-xl text-magenta font-vag text-center mt-8"}>Howest Booking</h3>
+                        <h1 className={"text-4xl font-vagbold text-center"}>Welcome Back!</h1>
+                        <h2 className={"text-lg font-vag text-center mb-8"}>login</h2>
                         {
                             (companySignIn)
                                 ? <CompanySignIn />
@@ -61,12 +57,12 @@ const Home = () => {
 
     function RoleSelection() {
         return (
-            <nav className={"flex flex-row items-center m-2 lg:flex-col gap-2 lg:gap-0.5"}>
-                <LargeButton onClick={() => instance.loginRedirect()} bg={"bg-blue"}>
+            <nav className={"w-3/4 flex flex-col items-center"}>
+                <LargeButton className={"bg-teal rounded font-bold text-white p-2 text-center w-full mb-2 md:w-1/3 md:mx-auto"} onClick={() => instance.loginRedirect()}>
                     Login as student
                 </LargeButton>
                 <p className={"font-vagbold"}>or</p>
-                <LargeButton bg={"bg-blue"} onClick={() => setCompanySignIn(true)}>
+                <LargeButton className={"bg-black rounded font-bold text-white p-2 w-full text-center mt-2 md:w-1/3 md:mx-auto"} onClick={() => setCompanySignIn(true)}>
                     Login as company
                 </LargeButton>
             </nav>

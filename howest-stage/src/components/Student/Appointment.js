@@ -16,6 +16,12 @@ class StudentAppointment extends Component {
                     textColor={"text-magenta"}>
                     Meeting Link
                 </MediumButton>
+                <MediumButton onClick={() => this.props.cancelFunc()}
+                    alt={"cancel appointment"}
+                    className={"w-fit font-bold hover:text-black"}
+                    textColor={"text-magenta"}>
+                    Cancel meeting
+                </MediumButton>
             </section>
         );
     }
