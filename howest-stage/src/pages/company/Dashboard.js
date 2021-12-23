@@ -29,15 +29,17 @@ class CompanyDashboard extends Component {
     }
 
     cancelAppointment(userId, appointmentId) {
-        fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
-        this.companyToken)
-        .then(res => {
-            if(res.result) {
-                this.setState(state => ({
-                    appointments: state.appointments.filter(appointment => appointment.bookingsId !== appointmentId)
-                }));
-            }
-        });
+        if(window.confirm("Are you sure you want to cancel this appointment?")) {
+            fetchFromBackend(`/api/user/${userId}/appointments/${appointmentId}`, "DELETE", 
+            this.companyToken)
+            .then(res => {
+                if(res.result) {
+                    this.setState(state => ({
+                        appointments: state.appointments.filter(appointment => appointment.bookingsId !== appointmentId)
+                    }));
+                }
+            });
+        }
     }
 
     render() {

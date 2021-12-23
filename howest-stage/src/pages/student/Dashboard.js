@@ -51,13 +51,15 @@ class StudentDashboard extends Component {
     }
 
     deleteAppointment(appointmentId) {
-        this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
-            cancelAppointment(response.accessToken,this.context.instance.getActiveAccount().username, appointmentId, () => {
-                this.setState({
-                    appointments: this.state.appointments.filter(appointment => appointment.id !== appointmentId)
+        if(window.confirm("Are you sure you want to cancel this appointment?")) {
+            this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
+                cancelAppointment(response.accessToken,this.context.instance.getActiveAccount().username, appointmentId, () => {
+                    this.setState({
+                        appointments: this.state.appointments.filter(appointment => appointment.id !== appointmentId)
+                    })
                 })
             })
-        })
+        }
     }
 
     handleSearchFilter = (event) => {
