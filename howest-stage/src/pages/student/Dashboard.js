@@ -7,6 +7,7 @@ import StudentAppointments from "../../components/Student/Appointments";
 import StudentCompanyList from "../../components/Student/Companies";
 import {fetchFromBackend, cancelAppointment} from "../../components/Comms";
 import { MsalContext } from "@azure/msal-react";
+import appointments from "../../components/Student/Appointments";
 
 class StudentDashboard extends Component {
     static contextType = MsalContext;
@@ -30,6 +31,7 @@ class StudentDashboard extends Component {
         this.context.instance.setActiveAccount(this.context.accounts[0])
 
         this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
+            console.log(response.accessToken)
                 fetchFromBackend("/api/user/", "GET", response.accessToken).then(data => {this.setState(() => ({
                     isAdmin: data.roles.includes("Administrator")
                 }))
@@ -50,12 +52,14 @@ class StudentDashboard extends Component {
         })
     }
 
-    deleteAppointment(appointmentId) {
+    deleteAppointment(appointmentId,localId) {
         if(window.confirm("Are you sure you want to cancel this appointment?")) {
             this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
                 cancelAppointment(response.accessToken,this.context.instance.getActiveAccount().username, appointmentId, () => {
                     this.setState({
-                        appointments: this.state.appointments.filter(appointment => appointment.id !== appointmentId)
+                        appointments: this.state.appointments.filter(appointment => appointment.id !== localId)
+                    }, () => {
+                        console.log(appointmentId)
                     })
                 })
             })
@@ -74,10 +78,10 @@ class StudentDashboard extends Component {
             this.context.instance.acquireTokenSilent(this.tokenRequest).then(response => {
                 fetchFromBackend(`/api/companies/${id}`, "DELETE", response.accessToken).then(() => {
                     alert("Company deleted.");
-                    
+                    console.log(this.state.appointments)
                     this.setState((state) => ({
-                        allcompanies: state.allcompanies.filter(company => company.id !== id),
-                        companies: state.companies.filter(company => company.id !== id)
+                        allcompanies: this.state.allcompanies.filter(company => company.id !== id),
+                        companies: this.state.companies.filter(company => company.id !== id)
                     }));
                 }).catch(() => {
                     alert("Something went wrong.");
@@ -114,7 +118,7 @@ class StudentDashboard extends Component {
                         Logout
                     </MediumButton>
                 </UniversalHeader>
-                <main className="flex flex-row pt-20 gap-2 mt-18">
+                <main className="flex flex-row pt-20 min-h-screen gap-2 mt-18">
                     <StudentAppointments >
                         {
                             appointments !== undefined ?
@@ -123,7 +127,7 @@ class StudentDashboard extends Component {
                                     key={appointment.id}
                                     company={appointment.company.name}
                                     date={new Date(appointment.startTime)}
-                                    cancelFunc={() => this.deleteAppointment(appointment.bookingsId)}
+                                    cancelFunc={() => this.deleteAppointment(appointment.bookingsId, appointment.id)}
                                     meeting={"https://meet.jit.si/" + appointment.id + "/" + appointment.company.name.replace(' ', '')}
                                 />) : <p className={"top-2"}>loading appointments...</p>
                         }
