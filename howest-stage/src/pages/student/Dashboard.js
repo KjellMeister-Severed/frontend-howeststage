@@ -67,7 +67,7 @@ class StudentDashboard extends Component {
     }
 
     handleSearchFilter = (event) => {
-        let filteredList = this.state.allcompanies.filter(company => company.name.toLowerCase().includes(event.target.value.toLowerCase()));
+        let filteredList = this.state.allcompanies.filter(company => company.name.toLowerCase().includes(event.target.value.toLowerCase()) || company.city.toLowerCase().includes(event.target.value.toLowerCase()));
         this.setState((state) => ({
             companies: filteredList,
         }))
